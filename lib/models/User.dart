@@ -5,6 +5,7 @@ class User {
   String _nickname;
   String _photoUrl;
   String _createdAt;
+  String _aboutMe;
 
   String get id => _id;
 
@@ -30,7 +31,14 @@ class User {
     _createdAt = value;
   }
 
-  User(this._id, this._nickname, this._photoUrl, this._createdAt);
+
+  String get aboutMe => _aboutMe;
+
+  set aboutMe(String value) {
+    _aboutMe = value;
+  }
+
+  User(this._id, this._nickname, this._photoUrl, this._createdAt, this._aboutMe);
 
   // User.toDataSnapshot(DocumentSnapshot snapshot) {
   //   User(
