@@ -1,18 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
+import 'package:flutter_chat_app/repositories/LoginRepository.dart';
 import 'package:flutter_chat_app/utils/AppBloc.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/repositories/LoginRepository.dart';
-
+///
+/// Created by Amit Kumar Sahoo on 10/29/2020
+/// LoginAuthBloc : Login related methods BLOC
+///
 class LoginAuthBloc extends AppBlock {
   final LoginRepository _repository = LoginRepository();
 
   final BehaviorSubject<CommonsResponse<FirebaseUser>> _logginData =
       BehaviorSubject<CommonsResponse<FirebaseUser>>();
 
+  final BehaviorSubject<CommonsResponse<bool>> _isLogin =
+      BehaviorSubject<CommonsResponse<bool>>();
+
   BehaviorSubject<CommonsResponse<FirebaseUser>> get loginData => _logginData;
 
+  BehaviorSubject<CommonsResponse<bool>> get isLogin => _isLogin;
+
+  //Login user with google account
   void loginUser() async {
     _logginData.add(CommonsResponse.loading('Please wait user logging in'));
     FirebaseUser response = await _repository.loginUser();
@@ -25,8 +34,25 @@ class LoginAuthBloc extends AppBlock {
     }
   }
 
+  //Check if user already logged in
+  void isLoggedIn() async {
+    _isLogin.add(CommonsResponse.loading('Checking, user login data'));
+    bool loginData = await _repository.checkForUserLogin();
+
+    if (loginData == null) {
+      _logginData.add(CommonsResponse.error('Unable to fetch user data'));
+    } else if (loginData) {
+      _isLogin.add(CommonsResponse.completed(loginData,
+          message: 'User is already logged-in'));
+    } else {
+      _isLogin.add(CommonsResponse.completed(loginData,
+          message: 'Please sign-in using google account.'));
+    }
+  }
+
   @override
   dispose() {
     _logginData?.close();
+    _isLogin.close();
   }
 }

@@ -1,13 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_chat_app/models/User.dart';
+import 'package:flutter_chat_app/utils/PreferenceUtils.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+///
+/// Created by Amit Kumar Sahoo on 10/29/2020
+/// LoginProvider : Provides login related methods
+///
 class LoginProvider {
   final GoogleSignIn signIn = GoogleSignIn();
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   FirebaseUser currentUser;
 
-  Future<FirebaseUser> SigninUserWithGoogle() async {
+  ///
+  /// sign in user with google account
+  ///
+  Future<FirebaseUser> signinUserWithGoogle() async {
     //await Firebase.initializeApp();
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
@@ -15,18 +24,12 @@ class LoginProvider {
     GoogleSignInAuthentication googleSignInAuthentication =
         await userAccount.authentication;
 
-    //debugPrint("Hello ${googleSignInAuthentication.idToken}");
-
     final AuthCredential credential = GoogleAuthProvider.getCredential(
         idToken: googleSignInAuthentication.idToken,
         accessToken: googleSignInAuthentication.accessToken);
-    //
-    //debugPrint('Google auth success ${credential.toString()}');
-    //
+
     FirebaseUser firebaseUser =
         (await firebaseAuth.signInWithCredential(credential)).user;
-
-    //debugPrint('Firebase auth success ${firebaseUser.displayName}');
 
     //Login successful
     if (firebaseUser != null) {
@@ -51,31 +54,31 @@ class LoginProvider {
 
         //Write data to local
         currentUser = firebaseUser;
-        //await preferences.setString('id', firebaseUser.uid);
-        //await preferences.setString('nickname', firebaseUser.displayName);
-        //await preferences.setString('photoUrl', firebaseUser.photoUrl);
+        User user = User(
+            firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl);
+        PreferenceUtils.saveUserDetailsPreference(user);
       } else {
         //Write data to local
         currentUser = firebaseUser;
-        // await preferences.setString('id', documentSnapshots[0]['id']);
-        // await preferences.setString(
-        //     'nickname', documentSnapshots[0]['nickname']);
-        // await preferences.setString(
-        //     'photoUrl', documentSnapshots[0]['photoUrl']);
-        // await preferences.setString('aboutMe', documentSnapshots[0]['aboutMe']);
+        User user = User(
+            documentSnapshots[0]['id'],
+            documentSnapshots[0]['nickname'],
+            documentSnapshots[0]['photoUrl'],
+            documentSnapshots[0]['aboutMe']);
+        PreferenceUtils.saveUserDetailsPreference(user);
       }
-      // Fluttertoast.showToast(msg: 'Sign in success');
-      // debugPrint('Sign in success');
-      // setState(() {
-      //   isLoading = false;
-      // });
     } else {
+      //Sign in failed
+
       // Fluttertoast.showToast(msg: 'Try Again, Sign-in failed');
-      // setState(() {
-      //   isLoading = false;
-      // });
     }
 
     return firebaseUser;
+  }
+
+  ///
+  /// Check if user is already signed in or not
+  Future<bool> isSignIn() async {
+    return await signIn.isSignedIn();
   }
 }

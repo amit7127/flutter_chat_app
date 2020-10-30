@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_chat_app/blocs/LoginAuthBloc.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
 import 'package:flutter_chat_app/pages/HomePage.dart';
 import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
@@ -8,8 +9,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/blocs/LoginAuthBloc.dart';
-
+///
+/// Created by Amit Kumar Sahoo on 10/29/2020
+/// LoginScreen : login widget
+///
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
 
@@ -28,7 +31,8 @@ class LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     bloc = LoginAuthBloc();
-    isSignedIn();
+    // isSignedIn();
+    bloc.isLoggedIn();
   }
 
   @override
@@ -57,9 +61,11 @@ class LoginScreenState extends State<LoginScreen> {
                 height: 50.0,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(
-                            'assets/images/google_signin_button.png'),
-                        fit: BoxFit.cover)),
+                      image:
+                          AssetImage('assets/images/google_signin_button.png'),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(50.0)),
               ),
               onTap: () {
                 debugPrint('Google login clicked');
@@ -74,6 +80,7 @@ class LoginScreenState extends State<LoginScreen> {
                     AsyncSnapshot<CommonsResponse<FirebaseUser>> snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data.status == Status.LOADING) {
+                      //Loading screen
                       return circularProgress();
                     } else if (snapshot.data.status == Status.ERROR) {
                       Fluttertoast.showToast(msg: snapshot.data.message);
@@ -82,10 +89,7 @@ class LoginScreenState extends State<LoginScreen> {
                       Fluttertoast.showToast(msg: snapshot.data.message);
                       SchedulerBinding.instance
                           .addPostFrameCallback((timeStamp) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute<HomeScreen>(
-                                builder: (context) => HomeScreen()));
+                        navigateToHomePage();
                       });
                       return Container();
                     }
@@ -93,21 +97,55 @@ class LoginScreenState extends State<LoginScreen> {
                   return Container();
                 },
               ),
-            )
+            ),
+            Padding(
+              padding: EdgeInsets.all(6.0),
+              child: StreamBuilder<CommonsResponse<bool>>(
+                stream: bloc.isLogin.stream,
+                builder: (BuildContext context,
+                    AsyncSnapshot<CommonsResponse<bool>> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data.status == Status.LOADING) {
+                      //Loading screen
+                      return circularProgress();
+                    } else if (snapshot.data.status == Status.ERROR) {
+                      Fluttertoast.showToast(msg: snapshot.data.message);
+                      return Container();
+                    } else if (snapshot.data.status == Status.COMPLETED) {
+                      Fluttertoast.showToast(msg: snapshot.data.message);
+                      if (snapshot.data.data == true) {
+                        SchedulerBinding.instance
+                            .addPostFrameCallback((timeStamp) {
+                          navigateToHomePage();
+                        });
+                      }
+                      return Container();
+                    }
+                  }
+                  return Container();
+                },
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  //Check if user already logged in
-  void isSignedIn() async {
-    preferences = await SharedPreferences.getInstance();
-    if (await signIn.isSignedIn()) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
-    }
+  void navigateToHomePage() {
+    Navigator.push(context,
+        MaterialPageRoute<HomeScreen>(builder: (context) => HomeScreen()));
   }
+
+  // //Check if user already logged in
+  // void isSignedIn() async {
+  //   preferences = await SharedPreferences.getInstance();
+  //   if (await signIn.isSignedIn()) {
+  //     //Sign in success
+  //     Navigator.push(
+  //         context, MaterialPageRoute(builder: (context) => HomeScreen()));
+  //   }
+  // }
 
   @override
   void dispose() {
