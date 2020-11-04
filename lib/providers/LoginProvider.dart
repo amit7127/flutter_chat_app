@@ -17,9 +17,6 @@ class LoginProvider {
   /// sign in user with google account
   ///
   Future<FirebaseUser> signinUserWithGoogle() async {
-    //await Firebase.initializeApp();
-    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-
     GoogleSignInAccount userAccount = await signIn.signIn();
     GoogleSignInAuthentication googleSignInAuthentication =
         await userAccount.authentication;
@@ -80,5 +77,19 @@ class LoginProvider {
   /// Check if user is already signed in or not
   Future<bool> isSignIn() async {
     return await signIn.isSignedIn();
+  }
+
+  /// This method Signs out current user
+  Future<bool> signOutUser() async {
+    bool status = false;
+    await firebaseAuth.signOut();
+    print('firebase signout ${firebaseAuth.toString()}');
+    await signIn.disconnect();
+    await signIn.signOut();
+
+    print('True');
+    status = true;
+
+    return status;
   }
 }

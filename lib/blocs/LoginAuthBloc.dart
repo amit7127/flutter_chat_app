@@ -6,7 +6,7 @@ import 'package:rxdart/rxdart.dart';
 
 ///
 /// Created by Amit Kumar Sahoo on 10/29/2020
-/// LoginAuthBloc : Login related methods BLOC
+/// LoginAuthBloc.dart : Login related methods BLOC
 ///
 class LoginAuthBloc extends AppBlock {
   final LoginRepository _repository = LoginRepository();
@@ -40,7 +40,7 @@ class LoginAuthBloc extends AppBlock {
     bool loginData = await _repository.checkForUserLogin();
 
     if (loginData == null) {
-      _logginData.add(CommonsResponse.error('Unable to fetch user data'));
+      _isLogin.add(CommonsResponse.error('Unable to fetch user data'));
     } else if (loginData) {
       _isLogin.add(CommonsResponse.completed(loginData,
           message: 'User is already logged-in'));

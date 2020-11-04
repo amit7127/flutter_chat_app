@@ -137,16 +137,6 @@ class LoginScreenState extends State<LoginScreen> {
         MaterialPageRoute<HomeScreen>(builder: (context) => HomeScreen()));
   }
 
-  // //Check if user already logged in
-  // void isSignedIn() async {
-  //   preferences = await SharedPreferences.getInstance();
-  //   if (await signIn.isSignedIn()) {
-  //     //Sign in success
-  //     Navigator.push(
-  //         context, MaterialPageRoute(builder: (context) => HomeScreen()));
-  //   }
-  // }
-
   @override
   void dispose() {
     bloc.dispose();
