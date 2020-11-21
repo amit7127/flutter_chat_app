@@ -4,6 +4,7 @@ import 'package:flutter_chat_app/blocs/HomePageBloc.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
 import 'package:flutter_chat_app/pages/LoginPage.dart';
 import 'package:flutter_chat_app/pages/SettingsPage.dart';
+import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
 import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -16,6 +17,9 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   HomeBloc bloc;
+  Icon actionIcon = Icon(Icons.search);
+  Widget appBarTitle = Text('Home Page');
+  TextEditingController searchEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -26,7 +30,8 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: homeAppBar(),
+      appBar: HomeAppBar(
+          'Home Page', searchEditingController, () => navigateToSettingsPage()),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -65,66 +70,6 @@ class HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-    );
-  }
-
-  Icon actionIcon = Icon(Icons.search);
-  Widget appBarTitle = Text('Home Page');
-  TextEditingController searchEditingController = TextEditingController();
-
-  homeAppBar() {
-    return AppBar(
-      title: appBarTitle,
-      centerTitle: true,
-      titleSpacing: 0.0,
-      automaticallyImplyLeading: false,
-      actions: <Widget>[
-        IconButton(
-          icon: actionIcon,
-          onPressed: () {
-            setState(() {
-              if (actionIcon.icon == Icons.search) {
-                actionIcon = Icon(Icons.close);
-                appBarTitle = TextFormField(
-                  controller: searchEditingController,
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    color: Colors.white,
-                  ),
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search, color: Colors.white),
-                    hintText: "Search...",
-                    hintStyle: TextStyle(color: Colors.white),
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white)),
-                    filled: true,
-                  ),
-                );
-              } else {
-                actionIcon = Icon(Icons.search);
-                appBarTitle = Text('Home Page');
-              }
-            });
-          },
-        ),
-        IconButton(
-            icon: Icon(
-              Icons.settings,
-              color: Colors.white,
-            ),
-            onPressed: () =>
-                SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                  navigateToSettingsPage();
-                }))
-      ],
-      leading: IconButton(
-          icon: Icon(
-            Icons.account_circle,
-            color: Colors.white,
-          ),
-          onPressed: null),
     );
   }
 
