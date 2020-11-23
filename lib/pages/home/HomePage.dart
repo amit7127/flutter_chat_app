@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_chat_app/blocs/HomePageBloc.dart';
+import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/home/HomePageBloc.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'package:flutter_chat_app/pages/LoginPage.dart';
-import 'package:flutter_chat_app/pages/SettingsPage.dart';
+import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginPage.dart';
+import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/settings/SettingsPage.dart';
 import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
 import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
 import 'package:fluttertoast/fluttertoast.dart';

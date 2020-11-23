@@ -1,5 +1,5 @@
 import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'package:flutter_chat_app/repositories/LoginRepository.dart';
+import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginRepository.dart';
 import 'package:flutter_chat_app/utils/AppBloc.dart';
 import 'package:rxdart/rxdart.dart';
 

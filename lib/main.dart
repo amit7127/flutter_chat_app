@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/pages/LoginPage.dart';
+import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginPage.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();

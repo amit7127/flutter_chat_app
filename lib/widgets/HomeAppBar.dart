@@ -12,7 +12,8 @@ class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   final Function onSettingsButtonTapped;
 
   HomeAppBar(this.appBarTitle, this.searchEditingController,
-      this.onSettingsButtonTapped): preferredSize = Size.fromHeight(60.0);
+      this.onSettingsButtonTapped)
+      : preferredSize = Size.fromHeight(60.0);
 
   @override
   State<StatefulWidget> createState() {
@@ -85,9 +86,7 @@ class HomeAppBarState extends State<HomeAppBar> {
             ),
             onPressed: () =>
                 SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                  if (onSettingsButtonTapped != null) {
-                    onSettingsButtonTapped();
-                  }
+                  if (onSettingsButtonTapped != null) onSettingsButtonTapped();
                 }))
       ],
       leading: IconButton(
@@ -101,6 +100,6 @@ class HomeAppBarState extends State<HomeAppBar> {
 
   ///clear search text box
   void emptyTextFormField() {
-    searchEditingController.clear();
+    if (searchEditingController != null) searchEditingController.clear();
   }
 }

@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_chat_app/blocs/LoginAuthBloc.dart';
+import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginAuthBloc.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'package:flutter_chat_app/pages/HomePage.dart';
+import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/home/HomePage.dart';
 import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
