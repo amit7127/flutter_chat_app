@@ -35,6 +35,7 @@ class HomeAppBarState extends State<HomeAppBar> {
   HomeAppBarState(this.appBarTitleText, this.searchEditingController,
       this.onSettingsButtonTapped);
 
+  @override
   initState() {
     super.initState();
     appBarTitle = Text(appBarTitleText);
@@ -102,4 +103,28 @@ class HomeAppBarState extends State<HomeAppBar> {
   void emptyTextFormField() {
     if (searchEditingController != null) searchEditingController.clear();
   }
+}
+
+///App bar with title in the middle
+///[titleText] : String title
+class DefaultAppBarWithTitle extends StatelessWidget implements PreferredSizeWidget {
+  final String titleText;
+
+  DefaultAppBarWithTitle(this.titleText): preferredSize = Size.fromHeight(60.0);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      iconTheme: IconThemeData(color: Colors.white),
+      backgroundColor: Colors.lightBlue,
+      title: Text(
+        titleText,
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+      centerTitle: true,
+    );
+  }
+
+  @override
+  final Size preferredSize;
 }

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/models/User.dart';
 import 'package:flutter_chat_app/widgets/CircularProfileImageView.dart';
+import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/settings/SettingsBloc.dart';
@@ -17,15 +18,7 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: Colors.lightBlue,
-        title: Text(
-          "Account Settings",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
+      appBar: DefaultAppBarWithTitle('Account Settings'),
       body: SettingsScreen(),
     );
   }

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/home/HomePageBloc.dart';
+import 'package:flutter_chat_app/generated/l10n.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginPage.dart';
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/settings/SettingsPage.dart';
 import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
 import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/home/HomePageBloc.dart';
+import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginPage.dart';
+import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/settings/SettingsPage.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -67,6 +69,31 @@ class HomeScreenState extends State<HomeScreen> {
                 return Container();
               },
             ),
+          ),
+          Text(
+            S.of(context).hello,
+            style: TextStyle(fontSize: 32),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              RaisedButton(
+                onPressed: () {
+                  setState(() {
+                    S.load(Locale('en'));
+                  });
+                },
+                child: Text('English'),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  setState(() {
+                    S.load(Locale('de'));
+                  });
+                },
+                child: Text('French'),
+              )
+            ],
           )
         ],
       ),
