@@ -44,6 +44,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Account Settings`
+  String get accountSettings {
+    return Intl.message(
+      'Account Settings',
+      name: 'accountSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home Page`
+  String get homePageTitle {
+    return Intl.message(
+      'Home Page',
+      name: 'homePageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get logoutButtonText {
+    return Intl.message(
+      'Logout',
+      name: 'logoutButtonText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search...`
+  String get searchHint {
+    return Intl.message(
+      'Search...',
+      name: 'searchHint',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

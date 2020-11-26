@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/generated/l10n.dart';
 import 'package:flutter_chat_app/models/User.dart';
+import 'package:flutter_chat_app/utils/ScaleConfig.dart';
 import 'package:flutter_chat_app/widgets/CircularProfileImageView.dart';
 import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,7 +20,7 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBarWithTitle('Account Settings'),
+      appBar: DefaultAppBarWithTitle(S.of(context).accountSettings),
       body: SettingsScreen(),
     );
   }
@@ -58,7 +60,8 @@ class SettingsState extends State<SettingsScreen> {
                 child: Center(
                   child: Stack(
                     children: <Widget>[
-                      (imageFileAvatar == null) ?
+                      (imageFileAvatar == null)
+                          ?
                           //File is empty so fetch profile image from url
                           StreamBuilder<User>(
                               stream: bloc.userData.stream,
@@ -71,29 +74,32 @@ class SettingsState extends State<SettingsScreen> {
                                 } else {
                                   //Data is not available or data is empty for the profile image, so show placeholder
                                   return Icon(Icons.account_circle,
-                                      size: 90.0, color: Colors.grey);
+                                      size:
+                                          ScaleConfig.blockSizeHorizontal * 30,
+                                      color: Colors.grey);
                                 }
                               },
                             )
-                          : CircularProfileImageFromMemory(imageFileAvatar), //File is selected from the gallery
+                          : CircularProfileImageFromMemory(imageFileAvatar),
+                      //File is selected from the gallery
                       IconButton(
                         icon: Icon(
                           Icons.camera_alt,
-                          size: 100.0,
+                          size: ScaleConfig.blockSizeHorizontal * 20,
                           color: Colors.white54.withOpacity(0.3),
                         ),
                         onPressed: getImageFromDeviceGallery,
                         padding: EdgeInsets.all(0.0),
                         splashColor: Colors.transparent,
                         highlightColor: Colors.grey,
-                        iconSize: 200.0,
+                        iconSize: ScaleConfig.blockSizeHorizontal * 50,
                       )
                     ],
                   ),
                 ),
                 width: double.infinity,
-                margin: EdgeInsets.all(20.0),
-              )
+                margin: EdgeInsets.all(ScaleConfig.largePadding),
+              ),
             ],
           ),
         )

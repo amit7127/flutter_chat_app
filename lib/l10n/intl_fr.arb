@@ -1,3 +1,7 @@
 {
-  "hello": "Hello in French"
+  "hello": "Hello in French",
+  "accountSettings": "Paramètres du compte",
+  "homePageTitle": "Page d'accueil",
+  "logoutButtonText": "Se déconnecter",
+  "searchHint": "Chercher..."
 }

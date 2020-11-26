@@ -19,9 +19,9 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   HomeBloc bloc;
-  Icon actionIcon = Icon(Icons.search);
-  Widget appBarTitle = Text('Home Page');
   TextEditingController searchEditingController = TextEditingController();
+  Icon actionIcon = Icon(Icons.search);
+  Widget appBarTitle;
 
   @override
   void initState() {
@@ -32,8 +32,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeAppBar(
-          'Home Page', searchEditingController, () => navigateToSettingsPage()),
+      appBar: HomeAppBar(S.of(context).homePageTitle, searchEditingController, () => navigateToSettingsPage()),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +40,7 @@ class HomeScreenState extends State<HomeScreen> {
           RaisedButton.icon(
               onPressed: () => bloc.logOutUser(),
               icon: Icon(Icons.close),
-              label: Text("Sign out")),
+              label: Text(S.of(context).logoutButtonText)),
           Padding(
             padding: EdgeInsets.all(6.0),
             child: StreamBuilder<CommonsResponse<bool>>(
@@ -88,7 +87,7 @@ class HomeScreenState extends State<HomeScreen> {
               RaisedButton(
                 onPressed: () {
                   setState(() {
-                    S.load(Locale('de'));
+                    S.load(Locale('fr'));
                   });
                 },
                 child: Text('French'),
@@ -104,6 +103,11 @@ class HomeScreenState extends State<HomeScreen> {
   void navigateToLoginPage() {
     Navigator.push(context,
         MaterialPageRoute<HomeScreen>(builder: (context) => LoginScreen()));
+  }
+
+  ///clear search text box
+  void emptyTextFormField() {
+    if (searchEditingController != null) searchEditingController.clear();
   }
 
   ///navigate to Settings page

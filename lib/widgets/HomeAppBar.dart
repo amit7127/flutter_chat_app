@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_chat_app/generated/l10n.dart';
 
 ///
 /// Created by  on 11/21/2020.
 /// HomeAppBar.dart : App bar widget with search bar and settings navigation icon
 ///
 class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
-  final String appBarTitle;
+  String appBarTitle;
   final TextEditingController searchEditingController;
   final Function onSettingsButtonTapped;
 
@@ -17,8 +18,7 @@ class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return HomeAppBarState(
-        appBarTitle, searchEditingController, onSettingsButtonTapped);
+    return HomeAppBarState();
   }
 
   @override
@@ -26,23 +26,38 @@ class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class HomeAppBarState extends State<HomeAppBar> {
-  String appBarTitleText;
-  Icon actionIcon = Icon(Icons.search);
+  Icon actionIcon;
   Widget appBarTitle;
-  TextEditingController searchEditingController;
-  Function onSettingsButtonTapped;
-
-  HomeAppBarState(this.appBarTitleText, this.searchEditingController,
-      this.onSettingsButtonTapped);
+  bool isSearchClicked;
 
   @override
-  initState() {
+  void initState() {
+    actionIcon = Icon(Icons.search);
+    isSearchClicked = false;
     super.initState();
-    appBarTitle = Text(appBarTitleText);
   }
 
   @override
   Widget build(BuildContext context) {
+    appBarTitle = isSearchClicked
+        ? TextFormField(
+            controller: widget.searchEditingController,
+            style: TextStyle(
+              fontSize: 18.0,
+              color: Colors.white,
+            ),
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.search, color: Colors.white),
+              hintText: S.of(context).searchHint,
+              hintStyle: TextStyle(color: Colors.white),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey)),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)),
+              filled: true,
+            ),
+          )
+        : Text(widget.appBarTitle);
     return AppBar(
       title: appBarTitle,
       centerTitle: true,
@@ -55,26 +70,12 @@ class HomeAppBarState extends State<HomeAppBar> {
             setState(() {
               if (actionIcon.icon == Icons.search) {
                 actionIcon = Icon(Icons.close);
-                appBarTitle = TextFormField(
-                  controller: searchEditingController,
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    color: Colors.white,
-                  ),
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search, color: Colors.white),
-                    hintText: "Search...",
-                    hintStyle: TextStyle(color: Colors.white),
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white)),
-                    filled: true,
-                  ),
-                );
+                //appBarTitle;
+                isSearchClicked = true;
               } else {
                 actionIcon = Icon(Icons.search);
-                appBarTitle = Text('Home Page');
+                //appBarTitle = Text('Home Page');
+                isSearchClicked = false;
                 emptyTextFormField();
               }
             });
@@ -87,7 +88,8 @@ class HomeAppBarState extends State<HomeAppBar> {
             ),
             onPressed: () =>
                 SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                  if (onSettingsButtonTapped != null) onSettingsButtonTapped();
+                  if (widget.onSettingsButtonTapped != null)
+                    widget.onSettingsButtonTapped();
                 }))
       ],
       leading: IconButton(
@@ -101,16 +103,19 @@ class HomeAppBarState extends State<HomeAppBar> {
 
   ///clear search text box
   void emptyTextFormField() {
-    if (searchEditingController != null) searchEditingController.clear();
+    if (widget.searchEditingController != null)
+      widget.searchEditingController.clear();
   }
 }
 
 ///App bar with title in the middle
 ///[titleText] : String title
-class DefaultAppBarWithTitle extends StatelessWidget implements PreferredSizeWidget {
+class DefaultAppBarWithTitle extends StatelessWidget
+    implements PreferredSizeWidget {
   final String titleText;
 
-  DefaultAppBarWithTitle(this.titleText): preferredSize = Size.fromHeight(60.0);
+  DefaultAppBarWithTitle(this.titleText)
+      : preferredSize = Size.fromHeight(60.0);
 
   @override
   Widget build(BuildContext context) {

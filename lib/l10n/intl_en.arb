@@ -1,3 +1,7 @@
 {
-  "hello": "Hello in English"
+  "hello": "Hello in English",
+  "accountSettings": "Account Settings",
+  "homePageTitle": "Home Page",
+  "logoutButtonText": "Logout",
+  "searchHint": "Search..."
 }

@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_chat_app/generated/l10n.dart';
 import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginAuthBloc.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
+import 'package:flutter_chat_app/utils/ScaleConfig.dart';
 import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/home/HomePage.dart';
 import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -37,6 +39,11 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    //Initialize the intl for default language of the app
+    //By default it's 'en'
+    ScaleConfig().init(context);
+
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(

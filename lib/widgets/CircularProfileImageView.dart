@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/utils/ScaleConfig.dart';
 
 import 'ProgressWidget.dart';
 
@@ -26,11 +27,12 @@ class CircularProfileImageFromNetwork extends StatelessWidget {
           child: circularProgress(),
         ),
         imageUrl: imageUrl,
-        width: 200.0,
-        height: 200.0,
+        width: ScaleConfig.blockSizeHorizontal * 50,
+        height: ScaleConfig.blockSizeHorizontal * 50,
         fit: BoxFit.cover,
       ),
-      borderRadius: BorderRadius.all(Radius.circular(125.0)),
+      borderRadius: BorderRadius.all(
+          Radius.circular(ScaleConfig.blockSizeHorizontal * 40)),
       clipBehavior: Clip.hardEdge,
     );
   }
@@ -49,11 +51,12 @@ class CircularProfileImageFromMemory extends StatelessWidget {
       //File is selected from the gallery
       child: Image.file(
         imageFileAvatar,
-        width: 200.0,
-        height: 200.0,
+        width: ScaleConfig.blockSizeHorizontal * 60,
+        height: ScaleConfig.blockSizeHorizontal * 60,
         fit: BoxFit.cover,
       ),
-      borderRadius: BorderRadius.all(Radius.circular(125.0)),
+      borderRadius: BorderRadius.all(
+          Radius.circular(ScaleConfig.blockSizeHorizontal * 40)),
       clipBehavior: Clip.hardEdge,
     );
   }

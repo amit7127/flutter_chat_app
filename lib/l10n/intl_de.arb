@@ -1,3 +1,6 @@
 {
-  "hello": "Hello in DE"
+  "hello": "Hello in DE",
+  "accountSettings": "Account Settings",
+  "homePageTitle": "Homaaa pagaa",
+  "logoutButtonText": "Logout"
 }
