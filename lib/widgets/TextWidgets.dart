@@ -13,8 +13,9 @@ import 'package:flutter/material.dart';
        // style: textStyle,
        // controller: _roiController,
        validator: (String value) {
-        if (value.isEmpty || double.tryParse(value) == null)
-         return 'Please Enter the Rate Of Interest';
+        if (value.isEmpty || double.tryParse(value) == null) {
+          return 'Please Enter the Rate Of Interest';
+        }
         return null;
        },
        keyboardType: TextInputType.number,

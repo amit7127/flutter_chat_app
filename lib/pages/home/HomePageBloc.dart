@@ -18,7 +18,7 @@ class HomeBloc extends AppBlock {
   ///logout user
   void logOutUser() async {
     _logout.add(CommonsResponse.loading('Logging out user, please wait.'));
-    bool loginData = await _repository.logoutUser();
+    var loginData = await _repository.logoutUser();
     print('returned from logout $loginData');
 
 

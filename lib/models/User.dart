@@ -57,24 +57,24 @@ class User {
   //}
 
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> map = Map<String, dynamic>();
+    var map = <String, dynamic>{};
 
-    map[Constants.USER_ID] = this._id;
-    map[Constants.USER_NICKNAME] = this._nickname;
-    map[Constants.USER_PHOTOURL] = this._photoUrl;
-    map[Constants.USER_CREATEDAT] = this._createdAt;
-    map[Constants.USER_ABOUTME] = this._aboutMe;
+    map[Constants.USER_ID] = _id;
+    map[Constants.USER_NICKNAME] = _nickname;
+    map[Constants.USER_PHOTOURL] = _photoUrl;
+    map[Constants.USER_CREATEDAT] = _createdAt;
+    map[Constants.USER_ABOUTME] = _aboutMe;
     //map[Constants.USER_CHATTINGWITH] = this._chattingWith;
 
     return map;
   }
 
   User.fromMap(Map<String, dynamic> map){
-    this._id = map[Constants.USER_ID];
-    this._nickname = map[Constants.USER_NICKNAME];
-    this._photoUrl = map[Constants.USER_PHOTOURL];
-    this._createdAt = map[Constants.USER_CREATEDAT];
-    this._aboutMe = map[Constants.USER_ABOUTME];
+    _id = map[Constants.USER_ID];
+    _nickname = map[Constants.USER_NICKNAME];
+    _photoUrl = map[Constants.USER_PHOTOURL];
+    _createdAt = map[Constants.USER_CREATEDAT];
+    _aboutMe = map[Constants.USER_ABOUTME];
 
     map[Constants.USER_CHATTINGWITH];
   }

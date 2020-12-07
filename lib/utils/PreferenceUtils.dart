@@ -7,13 +7,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PreferenceUtils {
   PreferenceUtils._();
 
-  static Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  static final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   /// ----------------------------------------------------------
   /// Generic routine to fetch an application preference
   /// ----------------------------------------------------------
   static Future<String> getStringItem(String name) async {
-    final SharedPreferences prefs = await _prefs;
+    final prefs = await _prefs;
 
     return prefs.getString(name) ?? '';
   }
@@ -22,7 +22,7 @@ class PreferenceUtils {
   /// Generic routine to saves an application preference
   /// ----------------------------------------------------------
   static Future<bool> setStringItem(String name, String value) async {
-    final SharedPreferences prefs = await _prefs;
+    final prefs = await _prefs;
 
     return prefs.setString(name, value);
   }
@@ -39,17 +39,17 @@ class PreferenceUtils {
 
   ///Get user details from device preferences
   static Future<User> getUserDetailsFromPreference() async {
-    String userId = await getStringItem(Constants.USER_ID);
-    String nickName = await getStringItem(Constants.USER_NICKNAME);
-    String photoUrl = await getStringItem(Constants.USER_PHOTOURL);
-    String aboutMe = await getStringItem(Constants.USER_ABOUTME);
+    var userId = await getStringItem(Constants.USER_ID);
+    var nickName = await getStringItem(Constants.USER_NICKNAME);
+    var photoUrl = await getStringItem(Constants.USER_PHOTOURL);
+    var aboutMe = await getStringItem(Constants.USER_ABOUTME);
 
-    User user = User(userId, nickName, photoUrl, aboutMe);
+    var user = User(userId, nickName, photoUrl, aboutMe);
     return user;
   }
 
   static Future<Set<String>> getAllKeys() async {
-    final SharedPreferences prefs = await _prefs;
+    final prefs = await _prefs;
 
     return prefs.getKeys();
   }

@@ -17,26 +17,26 @@ class LoginProvider {
   /// sign in user with google account
   ///
   Future<FirebaseUser> signinUserWithGoogle() async {
-    GoogleSignInAccount userAccount = await signIn.signIn();
-    GoogleSignInAuthentication googleSignInAuthentication =
+    var userAccount = await signIn.signIn();
+    var googleSignInAuthentication =
         await userAccount.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    final credential = GoogleAuthProvider.getCredential(
         idToken: googleSignInAuthentication.idToken,
         accessToken: googleSignInAuthentication.accessToken);
 
-    FirebaseUser firebaseUser =
+    var firebaseUser =
         (await firebaseAuth.signInWithCredential(credential)).user;
 
     //Login successful
     if (firebaseUser != null) {
-      final QuerySnapshot resultQuery = await Firestore.instance
+      final resultQuery = await Firestore.instance
           .collection('users')
           .where('id', isEqualTo: firebaseUser.uid)
           .getDocuments();
-      final List<DocumentSnapshot> documentSnapshots = resultQuery.documents;
+      final documentSnapshots = resultQuery.documents;
 
-      if (documentSnapshots.length == 0) {
+      if (documentSnapshots.isEmpty) {
         await Firestore.instance
             .collection('user')
             .document(firebaseUser.uid)
@@ -51,18 +51,18 @@ class LoginProvider {
 
         //Write data to local
         currentUser = firebaseUser;
-        User user = User(
+        var user = User(
             firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl);
-        PreferenceUtils.saveUserDetailsPreference(user);
+        await PreferenceUtils.saveUserDetailsPreference(user);
       } else {
         //Write data to local
         currentUser = firebaseUser;
-        User user = User(
+        var user = User(
             documentSnapshots[0]['id'],
             documentSnapshots[0]['nickname'],
             documentSnapshots[0]['photoUrl'],
             documentSnapshots[0]['aboutMe']);
-        PreferenceUtils.saveUserDetailsPreference(user);
+        await PreferenceUtils.saveUserDetailsPreference(user);
       }
     } else {
       //Sign in failed
@@ -81,7 +81,7 @@ class LoginProvider {
 
   /// This method Signs out current user
   Future<bool> signOutUser() async {
-    bool status = false;
+    var status = false;
     await firebaseAuth.signOut();
     print('firebase signout ${firebaseAuth.toString()}');
     await signIn.disconnect();

@@ -6,7 +6,7 @@ import 'file:///D:/Practice%20Project/flutter_chat_app/lib/providers/LoginProvid
 /// LoginRepository : Provides login provider object
 ///
 class LoginRepository{
-  LoginProvider _loginProvider = LoginProvider();
+  final LoginProvider _loginProvider = LoginProvider();
 
   ///Provides method for login user
   Future<FirebaseUser> loginUser(){

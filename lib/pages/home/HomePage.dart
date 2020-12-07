@@ -32,7 +32,8 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeAppBar(S.of(context).homePageTitle, searchEditingController, () => navigateToSettingsPage()),
+      appBar: HomeAppBar(S.of(context).homePageTitle, searchEditingController,
+          () => navigateToSettingsPage()),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,

@@ -14,6 +14,6 @@ class CommonsResponse<T> {
 
   @override
   String toString() {
-    return "Status : $status \n Code : $responseCode \n Message : $message \n Data : $data";
+    return 'Status : $status \n Code : $responseCode \n Message : $message \n Data : $data';
   }
 }

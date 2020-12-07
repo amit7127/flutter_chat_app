@@ -8,7 +8,7 @@ import 'package:flutter_chat_app/generated/l10n.dart';
 /// HomeAppBar.dart : App bar widget with search bar and settings navigation icon
 ///
 class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
-  String appBarTitle;
+  final String appBarTitle;
   final TextEditingController searchEditingController;
   final Function onSettingsButtonTapped;
 
@@ -88,8 +88,9 @@ class HomeAppBarState extends State<HomeAppBar> {
             ),
             onPressed: () =>
                 SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                  if (widget.onSettingsButtonTapped != null)
+                  if (widget.onSettingsButtonTapped != null) {
                     widget.onSettingsButtonTapped();
+                  }
                 }))
       ],
       leading: IconButton(
@@ -103,8 +104,9 @@ class HomeAppBarState extends State<HomeAppBar> {
 
   ///clear search text box
   void emptyTextFormField() {
-    if (widget.searchEditingController != null)
+    if (widget.searchEditingController != null) {
       widget.searchEditingController.clear();
+    }
   }
 }
 

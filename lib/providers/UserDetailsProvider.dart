@@ -17,22 +17,22 @@ class UserDetailsProvider {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<String> getCurrentUSerId() async {
-    final FirebaseUser user = await auth.currentUser();
+    final user = await auth.currentUser();
     return user.uid;
   }
 
   void uploadProfileImageToFireStore(
       File imageFile, Function onSuccess, Function onFailure) async {
-    String currentUserId = await getCurrentUSerId();
+    var currentUserId = await getCurrentUSerId();
 
-    String fileName = currentUserId;
-    StorageReference profileStorageRef =
+    var fileName = currentUserId;
+    var profileStorageRef =
         firebaseStorageReference.child(fileName);
 
-    StorageUploadTask storageUploadTask = profileStorageRef.putFile(imageFile);
+    var storageUploadTask = profileStorageRef.putFile(imageFile);
     StorageTaskSnapshot storageTaskSnapshot;
 
-    storageUploadTask.onComplete.then((value) {
+    await storageUploadTask.onComplete.then((value) {
       storageTaskSnapshot = value;
       storageTaskSnapshot.ref
           .getDownloadURL()
@@ -42,7 +42,7 @@ class UserDetailsProvider {
 
   Future<User> updateUserData(
       String imageUrl, String profileName, String userBio) async {
-    String currentUserId = await getCurrentUSerId();
+    var currentUserId = await getCurrentUSerId();
     User userData;
 
     await Firestore.instance

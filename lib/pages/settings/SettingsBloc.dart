@@ -36,7 +36,7 @@ class SettingsBloc extends AppBlock {
 
   ///get user data from Preferences
   void getUserDataFromDevice() async {
-    User userData = await _settingsRepo.getSavedUserDataFromDevice();
+    var userData = await _settingsRepo.getSavedUserDataFromDevice();
     _userData.add(userData);
   }
 
@@ -62,7 +62,7 @@ class SettingsBloc extends AppBlock {
     _userUpdate
         .add(CommonsResponse.loading(S.of(_context).user_info_update_message));
 
-    User user =
+    var user =
         await _settingsRepo.updateUserData(imageUrl, profileName, userBio);
     if (user != null) {
       _userUpdate.add(CommonsResponse.completed(user,

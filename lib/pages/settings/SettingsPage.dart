@@ -62,7 +62,7 @@ class SettingsState extends State<SettingsScreen> {
     bloc = SettingsBloc(context);
 
     bloc.getUserDataFromDevice();
-    TextStyle textStyle = Theme.of(context).textTheme.bodyText1;
+    var textStyle = Theme.of(context).textTheme.bodyText1;
 
     return Stack(
       children: <Widget>[
@@ -121,8 +121,9 @@ class SettingsState extends State<SettingsScreen> {
                   controller: nickNameTextEditingController,
                   focusNode: nickNameFocusNode,
                   validator: (String value) {
-                    if (value.isEmpty)
+                    if (value.isEmpty) {
                       return S.of(context).nickNameValidationErrorMessage;
+                    }
                     return null;
                   },
                   keyboardType: TextInputType.name,
@@ -146,8 +147,9 @@ class SettingsState extends State<SettingsScreen> {
                   controller: aboutMeTextEditingController,
                   focusNode: bioFocusNode,
                   validator: (String value) {
-                    if (value.isEmpty || value.length < 10)
+                    if (value.isEmpty || value.length < 10) {
                       return S.of(context).bioValidationErrorMessage;
+                    }
                     return null;
                   },
                   keyboardType: TextInputType.multiline,
@@ -250,14 +252,13 @@ class SettingsState extends State<SettingsScreen> {
 
   ///get image from the device gallery
   Future getImageFromDeviceGallery() async {
-    ImagePicker imagePicker = ImagePicker();
-    PickedFile pickedFile =
-        await imagePicker.getImage(source: ImageSource.gallery);
-    File newImageSelected = File(pickedFile.path);
+    var imagePicker = ImagePicker();
+    var pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
+    var newImageSelected = File(pickedFile.path);
 
     if (newImageSelected != null) {
       setState(() {
-        this.imageFileAvatar = newImageSelected;
+        imageFileAvatar = newImageSelected;
       });
       uploadImageAndSaveData(newImageSelected);
     }

@@ -24,7 +24,7 @@ class LoginAuthBloc extends AppBlock {
   //Login user with google account
   void loginUser() async {
     _logginData.add(CommonsResponse.loading('Please wait user logging in'));
-    FirebaseUser response = await _repository.loginUser();
+    var response = await _repository.loginUser();
 
     if (response == null) {
       _logginData.add(CommonsResponse.error('Log-in Failed'));
@@ -37,7 +37,7 @@ class LoginAuthBloc extends AppBlock {
   //Check if user already logged in
   void isLoggedIn() async {
     _isLogin.add(CommonsResponse.loading('Checking, user login data'));
-    bool loginData = await _repository.checkForUserLogin();
+    var loginData = await _repository.checkForUserLogin();
 
     if (loginData == null) {
       _isLogin.add(CommonsResponse.error('Unable to fetch user data'));
@@ -51,7 +51,7 @@ class LoginAuthBloc extends AppBlock {
   }
 
   @override
-  dispose() {
+  void dispose() {
     _logginData?.close();
     _isLogin.close();
   }
