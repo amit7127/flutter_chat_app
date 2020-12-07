@@ -22,9 +22,15 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "accountSettings" : MessageLookupByLibrary.simpleMessage("Paramètres du compte"),
+    "bioHint" : MessageLookupByLibrary.simpleMessage("Veuillez écrire quelque chose sur vous."),
+    "bioLabel" : MessageLookupByLibrary.simpleMessage("Au propos de vous"),
+    "bioValidationErrorMessage" : MessageLookupByLibrary.simpleMessage("Veuillez fournir votre biographie. Il doit contenir au moins 10 caractères."),
     "hello" : MessageLookupByLibrary.simpleMessage("Hello in French"),
     "homePageTitle" : MessageLookupByLibrary.simpleMessage("Page d\'accueil"),
     "logoutButtonText" : MessageLookupByLibrary.simpleMessage("Se déconnecter"),
+    "nickNameHint" : MessageLookupByLibrary.simpleMessage("par exemple - Amit / Nick"),
+    "nickNameLabel" : MessageLookupByLibrary.simpleMessage("Surnom"),
+    "nickNameValidationErrorMessage" : MessageLookupByLibrary.simpleMessage("S\'il vous plait, entrez ton surnom"),
     "searchHint" : MessageLookupByLibrary.simpleMessage("Chercher...")
   };
 }

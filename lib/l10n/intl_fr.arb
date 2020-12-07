@@ -3,5 +3,14 @@
   "accountSettings": "Paramètres du compte",
   "homePageTitle": "Page d'accueil",
   "logoutButtonText": "Se déconnecter",
-  "searchHint": "Chercher..."
+  "searchHint": "Chercher...",
+
+  "nickNameValidationErrorMessage": "S'il vous plait, entrez ton surnom",
+  "nickNameHint": "par exemple - Amit / Nick",
+  "nickNameLabel": "Surnom",
+
+  "bioValidationErrorMessage": "Veuillez fournir votre biographie. Il doit contenir au moins 10 caractères.",
+  "bioHint": "Veuillez écrire quelque chose sur vous.",
+  "bioLabel": "Au propos de vous",
+  "UpdateButtonText": "Mise à jour"
 }

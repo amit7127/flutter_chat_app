@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/utils/ScaleConfig.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginPage.dart';
@@ -14,10 +13,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       title: 'Chat App',
       theme: ThemeData(primaryColor: Colors.blueAccent),

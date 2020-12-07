@@ -22,9 +22,21 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "accountSettings" : MessageLookupByLibrary.simpleMessage("Account Settings"),
+    "bioHint" : MessageLookupByLibrary.simpleMessage("Please write something about yourself."),
+    "bioLabel" : MessageLookupByLibrary.simpleMessage("About you"),
+    "bioValidationErrorMessage" : MessageLookupByLibrary.simpleMessage("Please provide your bio. It should at-least 10 characters long"),
     "hello" : MessageLookupByLibrary.simpleMessage("Hello in English"),
     "homePageTitle" : MessageLookupByLibrary.simpleMessage("Home Page"),
     "logoutButtonText" : MessageLookupByLibrary.simpleMessage("Logout"),
-    "searchHint" : MessageLookupByLibrary.simpleMessage("Search...")
+    "nickNameHint" : MessageLookupByLibrary.simpleMessage("e.g - Amit/Nick"),
+    "nickNameLabel" : MessageLookupByLibrary.simpleMessage("Nick Name"),
+    "nickNameValidationErrorMessage" : MessageLookupByLibrary.simpleMessage("Please enter your Nick name"),
+    "profile_image_upload_success_message" : MessageLookupByLibrary.simpleMessage("Profile image uploaded successfully."),
+    "searchHint" : MessageLookupByLibrary.simpleMessage("Search..."),
+    "updateButtonText" : MessageLookupByLibrary.simpleMessage("Update"),
+    "uploading_image_message_text" : MessageLookupByLibrary.simpleMessage("Image uploading, please wait"),
+    "user_info_update_failed_message" : MessageLookupByLibrary.simpleMessage("Unable to update data, please try again later."),
+    "user_info_update_message" : MessageLookupByLibrary.simpleMessage("User data updating, please wait."),
+    "user_info_update_success_message" : MessageLookupByLibrary.simpleMessage("UserData updated successfully")
   };
 }

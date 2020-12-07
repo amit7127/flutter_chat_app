@@ -51,8 +51,8 @@ class CircularProfileImageFromMemory extends StatelessWidget {
       //File is selected from the gallery
       child: Image.file(
         imageFileAvatar,
-        width: ScaleConfig.blockSizeHorizontal * 60,
-        height: ScaleConfig.blockSizeHorizontal * 60,
+        width: ScaleConfig.blockSizeHorizontal * 50,
+        height: ScaleConfig.blockSizeHorizontal * 50,
         fit: BoxFit.cover,
       ),
       borderRadius: BorderRadius.all(

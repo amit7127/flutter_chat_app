@@ -3,5 +3,19 @@
   "accountSettings": "Account Settings",
   "homePageTitle": "Home Page",
   "logoutButtonText": "Logout",
-  "searchHint": "Search..."
+  "searchHint": "Search...",
+
+  "nickNameValidationErrorMessage": "Please enter your Nick name",
+  "nickNameHint": "e.g - Amit/Nick",
+  "nickNameLabel": "Nick Name",
+
+  "bioValidationErrorMessage": "Please provide your bio. It should at-least 10 characters long",
+  "bioHint": "Please write something about yourself.",
+  "bioLabel": "About you",
+  "updateButtonText": "Update",
+  "uploading_image_message_text": "Image uploading, please wait",
+  "profile_image_upload_success_message": "Profile image uploaded successfully.",
+  "user_info_update_message": "User data updating, please wait.",
+  "user_info_update_success_message": "UserData updated successfully",
+  "user_info_update_failed_message": "Unable to update data, please try again later."
 }
