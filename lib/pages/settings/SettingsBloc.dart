@@ -31,6 +31,7 @@ class SettingsBloc extends AppBlock {
 
   BehaviorSubject<CommonsResponse<User>> get userUpdate => _userUpdate;
 
+  ///Constructor accepting context for multi lang support
   SettingsBloc(this._context);
 
   ///get user data from Preferences
