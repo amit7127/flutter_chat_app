@@ -16,8 +16,9 @@ import 'ProgressWidget.dart';
 ///[imageUrl] : String image url of the profile photo
 class CircularProfileImageFromNetwork extends StatelessWidget {
   final String imageUrl;
+  final double imageRadius;
 
-  CircularProfileImageFromNetwork(this.imageUrl);
+  CircularProfileImageFromNetwork(this.imageUrl, this.imageRadius);
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +27,14 @@ class CircularProfileImageFromNetwork extends StatelessWidget {
         placeholder: (context, url) => Container(
           child: circularProgress(),
         ),
+        errorWidget: (context, url, error) => Icon(Icons.report_gmailerrorred_rounded,size: ScaleConfig.blockSizeHorizontal * 30,),
         imageUrl: imageUrl,
-        width: ScaleConfig.blockSizeHorizontal * 50,
-        height: ScaleConfig.blockSizeHorizontal * 50,
+        width: ScaleConfig.blockSizeHorizontal * imageRadius,
+        height: ScaleConfig.blockSizeHorizontal * imageRadius,
         fit: BoxFit.cover,
       ),
       borderRadius: BorderRadius.all(
-          Radius.circular(ScaleConfig.blockSizeHorizontal * 40)),
+          Radius.circular(ScaleConfig.blockSizeHorizontal * imageRadius)),
       clipBehavior: Clip.hardEdge,
     );
   }

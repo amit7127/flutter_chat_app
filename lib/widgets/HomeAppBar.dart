@@ -11,9 +11,10 @@ class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String appBarTitle;
   final TextEditingController searchEditingController;
   final Function onSettingsButtonTapped;
+  final Function onProfileButtonClicked;
 
   HomeAppBar(this.appBarTitle, this.searchEditingController,
-      this.onSettingsButtonTapped)
+      this.onSettingsButtonTapped, this.onProfileButtonClicked)
       : preferredSize = Size.fromHeight(60.0);
 
   @override
@@ -98,7 +99,7 @@ class HomeAppBarState extends State<HomeAppBar> {
             Icons.account_circle,
             color: Colors.white,
           ),
-          onPressed: null),
+          onPressed: widget.onProfileButtonClicked),
     );
   }
 

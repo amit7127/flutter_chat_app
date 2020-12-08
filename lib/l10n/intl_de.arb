@@ -2,5 +2,7 @@
   "hello": "Hello in DE",
   "accountSettings": "Account Settings",
   "homePageTitle": "Homaaa pagaa",
-  "logoutButtonText": "Logout"
+  "logoutButtonText": "Logout",
+
+  "select_language": "Select Language in DE"
 }

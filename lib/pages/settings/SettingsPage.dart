@@ -74,8 +74,7 @@ class SettingsState extends State<SettingsScreen> {
                 child: Center(
                   child: Stack(
                     children: <Widget>[
-                      (imageFileAvatar == null)
-                          ?
+                      (imageFileAvatar == null) ?
                           //File is empty so fetch profile image from url
                           StreamBuilder<User>(
                               stream: bloc.userData.stream,
@@ -84,7 +83,7 @@ class SettingsState extends State<SettingsScreen> {
                                 if (snapshot.hasData && snapshot.data != null) {
                                   //If data available show circular profile image
                                   return CircularProfileImageFromNetwork(
-                                      snapshot.data.photoUrl);
+                                      snapshot.data.photoUrl, 45);
                                 } else {
                                   //Data is not available or data is empty for the profile image, so show placeholder
                                   return Icon(Icons.account_circle,
@@ -106,7 +105,7 @@ class SettingsState extends State<SettingsScreen> {
                         padding: EdgeInsets.all(0.0),
                         splashColor: Colors.transparent,
                         highlightColor: Colors.grey,
-                        iconSize: ScaleConfig.blockSizeHorizontal * 50,
+                        iconSize: ScaleConfig.blockSizeHorizontal * 45,
                       )
                     ],
                   ),

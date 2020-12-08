@@ -1,41 +1,58 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_chat_app/generated/l10n.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginRepository.dart';
+import 'package:flutter_chat_app/models/User.dart';
+import 'package:flutter_chat_app/pages/home/HomeRepsitory.dart';
 import 'package:flutter_chat_app/utils/AppBloc.dart';
 import 'package:rxdart/rxdart.dart';
+
+import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginRepository.dart';
 
 ///
 /// Created by Amit Kumar Sahoo on 11/2/2020.
 /// HomePageBloc.dart :
 
 class HomeBloc extends AppBlock {
+  final BuildContext _context;
   final LoginRepository _repository = LoginRepository();
+  final HomeRepository _homeRepo = HomeRepository();
+
+  HomeBloc(this._context);
 
   final BehaviorSubject<CommonsResponse<bool>> _logout =
       BehaviorSubject<CommonsResponse<bool>>();
+  final BehaviorSubject<User> _userData = BehaviorSubject<User>();
 
   BehaviorSubject<CommonsResponse<bool>> get logout => _logout;
 
+  BehaviorSubject<User> get userData => _userData;
+
+  ///get user data from Preferences
+  void getUserDataFromDevice() async {
+    var userData = await _homeRepo.getSavedUserDataFromDevice();
+    _userData.add(userData);
+  }
+
   ///logout user
   void logOutUser() async {
-    _logout.add(CommonsResponse.loading('Logging out user, please wait.'));
+    _logout.add(CommonsResponse.loading(S.of(_context).logout_wait_message));
     var loginData = await _repository.logoutUser();
-    print('returned from logout $loginData');
-
 
     if (loginData == null) {
-      _logout.add(CommonsResponse.error(
-          'Error: while logging out user.'));
+      _logout
+          .add(CommonsResponse.error(S.of(_context).error_in_logout_message));
     } else if (loginData == true) {
       _logout.add(CommonsResponse.completed(loginData,
-          message: 'User logged out successfully'));
+          message: S.of(_context).logout_success_message));
     } else {
       _logout.add(CommonsResponse.completed(loginData,
-          message: 'Unable to logout user, please try after some time'));
+          message: S.of(_context).unable_to_logout_message));
     }
   }
 
   @override
   void dispose() {
     _logout.close();
+    _userData.close();
   }
 }

@@ -43,8 +43,8 @@ class SettingsBloc extends AppBlock {
   ///upload image to firebase storage
   ///[imageFile] : File(dart.io) to upload
   void uploadProfileImage(File imageFile) {
-    _imageUploadTask
-        .add(CommonsResponse.loading(S.of(_context).uploading_image_message_text));
+    _imageUploadTask.add(
+        CommonsResponse.loading(S.of(_context).uploading_image_message_text));
 
     _settingsRepo.uploadImage(
         imageFile,

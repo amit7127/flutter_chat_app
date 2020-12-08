@@ -4,6 +4,10 @@
   "homePageTitle": "Home Page",
   "logoutButtonText": "Logout",
   "searchHint": "Search...",
+  "logout_wait_message": "Logging out user, please wait.",
+  "error_in_logout_message": "Error: while logging out user.",
+  "unable_to_logout_message": "Unable to logout user, please try after some time.",
+  "logout_success_message": "User logged out successfully.",
 
   "nickNameValidationErrorMessage": "Please enter your Nick name",
   "nickNameHint": "e.g - Amit/Nick",
@@ -17,5 +21,8 @@
   "profile_image_upload_success_message": "Profile image uploaded successfully.",
   "user_info_update_message": "User data updating, please wait.",
   "user_info_update_success_message": "UserData updated successfully",
-  "user_info_update_failed_message": "Unable to update data, please try again later."
+  "user_info_update_failed_message": "Unable to update data, please try again later.",
+
+  "select_language": "Select Language",
+  "menu_edit_profile": "Edit Profile"
 }

@@ -85,6 +85,46 @@ class S {
     );
   }
 
+  /// `Logging out user, please wait.`
+  String get logout_wait_message {
+    return Intl.message(
+      'Logging out user, please wait.',
+      name: 'logout_wait_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error: while logging out user.`
+  String get error_in_logout_message {
+    return Intl.message(
+      'Error: while logging out user.',
+      name: 'error_in_logout_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unable to logout user, please try after some time.`
+  String get unable_to_logout_message {
+    return Intl.message(
+      'Unable to logout user, please try after some time.',
+      name: 'unable_to_logout_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User logged out successfully.`
+  String get logout_success_message {
+    return Intl.message(
+      'User logged out successfully.',
+      name: 'logout_success_message',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please enter your Nick name`
   String get nickNameValidationErrorMessage {
     return Intl.message(
@@ -204,6 +244,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Select Language`
+  String get select_language {
+    return Intl.message(
+      'Select Language',
+      name: 'select_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Profile`
+  String get menu_edit_profile {
+    return Intl.message(
+      'Edit Profile',
+      name: 'menu_edit_profile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -211,9 +271,9 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en'),
-      Locale.fromSubtags(languageCode: 'de'),
-      Locale.fromSubtags(languageCode: 'fr'),
+      Locale.fromSubtags(languageCode: 'en', countryCode: 'US'),
+      Locale.fromSubtags(languageCode: 'de', countryCode: 'Denmark'),
+      Locale.fromSubtags(languageCode: 'fr', countryCode: 'France'),
     ];
   }
 

@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "accountSettings" : MessageLookupByLibrary.simpleMessage("Account Settings"),
     "hello" : MessageLookupByLibrary.simpleMessage("Hello in DE"),
     "homePageTitle" : MessageLookupByLibrary.simpleMessage("Homaaa pagaa"),
-    "logoutButtonText" : MessageLookupByLibrary.simpleMessage("Logout")
+    "logoutButtonText" : MessageLookupByLibrary.simpleMessage("Logout"),
+    "select_language" : MessageLookupByLibrary.simpleMessage("Select Language in DE")
   };
 }
