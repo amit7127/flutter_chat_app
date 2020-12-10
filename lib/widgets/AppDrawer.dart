@@ -14,9 +14,10 @@ class AppDrawer extends StatefulWidget {
   final String profileImageUrl;
   final Function changeLanguage;
   final Function navigateToSettingsPage;
+  final Function logoutUser;
 
-  AppDrawer(
-      this.profileImageUrl, this.changeLanguage, this.navigateToSettingsPage);
+  AppDrawer(this.profileImageUrl, this.changeLanguage,
+      this.navigateToSettingsPage, this.logoutUser);
 
   @override
   State<StatefulWidget> createState() {
@@ -88,6 +89,14 @@ class AppDrawerState extends State<AppDrawer> {
                 widget.navigateToSettingsPage();
               },
             ),
+            ListTile(
+              title: Text(S.of(context).logoutButtonText),
+              trailing: Icon(Icons.logout),
+              onTap: () {
+                // Update the state of the app
+                widget.logoutUser();
+              },
+            )
           ],
         ).toList(),
       ),

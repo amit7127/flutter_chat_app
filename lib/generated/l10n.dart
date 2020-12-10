@@ -125,6 +125,46 @@ class S {
     );
   }
 
+  /// `Search Users`
+  String get search_user_hint {
+    return Intl.message(
+      'Search Users',
+      name: 'search_user_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Result Found`
+  String get no_result_hint {
+    return Intl.message(
+      'No Result Found',
+      name: 'no_result_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Joined: {date}`
+  String user_joined_text(Object date) {
+    return Intl.message(
+      'Joined: $date',
+      name: 'user_joined_text',
+      desc: '',
+      args: [date],
+    );
+  }
+
+  /// `fetching users, please wait`
+  String get user_fetching_dialog {
+    return Intl.message(
+      'fetching users, please wait',
+      name: 'user_fetching_dialog',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please enter your Nick name`
   String get nickNameValidationErrorMessage {
     return Intl.message(
@@ -150,6 +190,16 @@ class S {
     return Intl.message(
       'Nick Name',
       name: 'nickNameLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About me`
+  String get about_me_placeHolder {
+    return Intl.message(
+      'About me',
+      name: 'about_me_placeHolder',
       desc: '',
       args: [],
     );
@@ -271,9 +321,9 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en', countryCode: 'US'),
-      Locale.fromSubtags(languageCode: 'de', countryCode: 'Denmark'),
-      Locale.fromSubtags(languageCode: 'fr', countryCode: 'France'),
+      Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'de'),
+      Locale.fromSubtags(languageCode: 'fr'),
     ];
   }
 

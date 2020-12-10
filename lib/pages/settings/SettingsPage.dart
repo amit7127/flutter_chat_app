@@ -6,6 +6,7 @@ import 'package:flutter_chat_app/generated/l10n.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
 import 'package:flutter_chat_app/models/User.dart';
 import 'package:flutter_chat_app/utils/ScaleConfig.dart';
+import 'package:flutter_chat_app/utils/extension_utils.dart';
 import 'package:flutter_chat_app/widgets/CircularProfileImageView.dart';
 import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
 import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
@@ -74,7 +75,8 @@ class SettingsState extends State<SettingsScreen> {
                 child: Center(
                   child: Stack(
                     children: <Widget>[
-                      (imageFileAvatar == null) ?
+                      (imageFileAvatar == null)
+                          ?
                           //File is empty so fetch profile image from url
                           StreamBuilder<User>(
                               stream: bloc.userData.stream,
@@ -196,12 +198,11 @@ class SettingsState extends State<SettingsScreen> {
                 builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
                   if (snapshot.hasData && snapshot.data != null) {
                     WidgetsBinding.instance.addPostFrameCallback((duration) {
-                      setState(() {
-                        nickNameTextEditingController.text =
-                            snapshot.data.nickname;
-                        aboutMeTextEditingController.text =
-                            snapshot.data.aboutMe;
-                      });
+                      nickNameTextEditingController.text =
+                          snapshot.data.nickname.titleCase();
+                      aboutMeTextEditingController.text =
+                          snapshot.data.aboutMe;
+                      updatedProfileImageUrl = snapshot.data.photoUrl;
                     });
                   }
                   return Container();

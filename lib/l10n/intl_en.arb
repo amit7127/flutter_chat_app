@@ -8,10 +8,15 @@
   "error_in_logout_message": "Error: while logging out user.",
   "unable_to_logout_message": "Unable to logout user, please try after some time.",
   "logout_success_message": "User logged out successfully.",
+  "search_user_hint": "Search Users",
+  "no_result_hint": "No Result Found",
+  "user_joined_text": "Joined: {date}",
+  "user_fetching_dialog": "fetching users, please wait",
 
   "nickNameValidationErrorMessage": "Please enter your Nick name",
   "nickNameHint": "e.g - Amit/Nick",
   "nickNameLabel": "Nick Name",
+  "about_me_placeHolder": "About me",
 
   "bioValidationErrorMessage": "Please provide your bio. It should at-least 10 characters long",
   "bioHint": "Please write something about yourself.",

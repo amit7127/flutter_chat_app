@@ -19,8 +19,11 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static m0(date) => "Joined: ${date}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "about_me_placeHolder" : MessageLookupByLibrary.simpleMessage("About me"),
     "accountSettings" : MessageLookupByLibrary.simpleMessage("Account Settings"),
     "bioHint" : MessageLookupByLibrary.simpleMessage("Please write something about yourself."),
     "bioLabel" : MessageLookupByLibrary.simpleMessage("About you"),
@@ -35,14 +38,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "nickNameHint" : MessageLookupByLibrary.simpleMessage("e.g - Amit/Nick"),
     "nickNameLabel" : MessageLookupByLibrary.simpleMessage("Nick Name"),
     "nickNameValidationErrorMessage" : MessageLookupByLibrary.simpleMessage("Please enter your Nick name"),
+    "no_result_hint" : MessageLookupByLibrary.simpleMessage("No Result Found"),
     "profile_image_upload_success_message" : MessageLookupByLibrary.simpleMessage("Profile image uploaded successfully."),
     "searchHint" : MessageLookupByLibrary.simpleMessage("Search..."),
+    "search_user_hint" : MessageLookupByLibrary.simpleMessage("Search Users"),
     "select_language" : MessageLookupByLibrary.simpleMessage("Select Language"),
     "unable_to_logout_message" : MessageLookupByLibrary.simpleMessage("Unable to logout user, please try after some time."),
     "updateButtonText" : MessageLookupByLibrary.simpleMessage("Update"),
     "uploading_image_message_text" : MessageLookupByLibrary.simpleMessage("Image uploading, please wait"),
+    "user_fetching_dialog" : MessageLookupByLibrary.simpleMessage("fetching users, please wait"),
     "user_info_update_failed_message" : MessageLookupByLibrary.simpleMessage("Unable to update data, please try again later."),
     "user_info_update_message" : MessageLookupByLibrary.simpleMessage("User data updating, please wait."),
-    "user_info_update_success_message" : MessageLookupByLibrary.simpleMessage("UserData updated successfully")
+    "user_info_update_success_message" : MessageLookupByLibrary.simpleMessage("UserData updated successfully"),
+    "user_joined_text" : m0
   };
 }

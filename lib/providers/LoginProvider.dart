@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_chat_app/models/User.dart';
+import 'package:flutter_chat_app/utils/Constants.dart';
 import 'package:flutter_chat_app/utils/PreferenceUtils.dart';
+import 'package:flutter_chat_app/utils/StringUtils.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 ///
@@ -18,8 +20,7 @@ class LoginProvider {
   ///
   Future<FirebaseUser> signinUserWithGoogle() async {
     var userAccount = await signIn.signIn();
-    var googleSignInAuthentication =
-        await userAccount.authentication;
+    var googleSignInAuthentication = await userAccount.authentication;
 
     final credential = GoogleAuthProvider.getCredential(
         idToken: googleSignInAuthentication.idToken,
@@ -31,37 +32,39 @@ class LoginProvider {
     //Login successful
     if (firebaseUser != null) {
       final resultQuery = await Firestore.instance
-          .collection('users')
-          .where('id', isEqualTo: firebaseUser.uid)
+          .collection(Constants.USER_TABLE_NAME)
+          .where(Constants.USER_ID, isEqualTo: firebaseUser.uid)
           .getDocuments();
       final documentSnapshots = resultQuery.documents;
 
       if (documentSnapshots.isEmpty) {
         await Firestore.instance
-            .collection('user')
+            .collection(Constants.USER_TABLE_NAME)
             .document(firebaseUser.uid)
             .setData({
-          'nickname': firebaseUser.displayName,
-          'photoUrl': firebaseUser.photoUrl,
-          'id': firebaseUser.uid,
-          'aboutMe': 'About me',
-          'createAt': DateTime.now().millisecondsSinceEpoch.toString(),
-          'chattingWith': null,
+          Constants.USER_NICKNAME: firebaseUser.displayName.toLowerCase(),
+          Constants.USER_PHOTOURL: firebaseUser.photoUrl,
+          Constants.USER_ID: firebaseUser.uid,
+          Constants.USER_ABOUTME: 'About me',
+          Constants.USER_CREATEDAT:
+              DateTime.now().millisecondsSinceEpoch.toString(),
+          Constants.USER_CHATTINGWITH: null,
+          Constants.USER_NAME_CASE_SEARCH : StringUtils.setSearchParam(firebaseUser.displayName.toLowerCase())
         });
 
         //Write data to local
         currentUser = firebaseUser;
-        var user = User(
-            firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl);
+        var user = User(firebaseUser.uid,
+            firebaseUser.displayName.toLowerCase(), firebaseUser.photoUrl, 'About me');
         await PreferenceUtils.saveUserDetailsPreference(user);
       } else {
         //Write data to local
         currentUser = firebaseUser;
         var user = User(
-            documentSnapshots[0]['id'],
-            documentSnapshots[0]['nickname'],
-            documentSnapshots[0]['photoUrl'],
-            documentSnapshots[0]['aboutMe']);
+            documentSnapshots[0][Constants.USER_TABLE_NAME],
+            documentSnapshots[0][Constants.USER_NICKNAME],
+            documentSnapshots[0][Constants.USER_PHOTOURL],
+            documentSnapshots[0][Constants.USER_ABOUTME]);
         await PreferenceUtils.saveUserDetailsPreference(user);
       }
     } else {
@@ -83,13 +86,10 @@ class LoginProvider {
   Future<bool> signOutUser() async {
     var status = false;
     await firebaseAuth.signOut();
-    print('firebase signout ${firebaseAuth.toString()}');
     await signIn.disconnect();
     await signIn.signOut();
 
-    print('True');
     status = true;
-
     return status;
   }
 }
