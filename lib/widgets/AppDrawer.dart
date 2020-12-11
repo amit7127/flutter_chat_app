@@ -121,7 +121,7 @@ class AppDrawerState extends State<AppDrawer> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Text(
-              locale.countryCode,
+              locale.scriptCode,
             ),
             color: currentLocaleSelected == locale.languageCode
                 ? Colors.blue
