@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_chat_app/generated/l10n.dart';
+import 'package:flutter_chat_app/utils/extension_utils.dart';
 
 ///
 /// Created by  on 11/21/2020.
@@ -130,6 +132,46 @@ class DefaultAppBarWithTitle extends StatelessWidget
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
       centerTitle: true,
+    );
+  }
+
+  @override
+  final Size preferredSize;
+}
+
+///Appbar for chat screen
+///[titleString] : title String to display (Receiver name)
+///[profileImageUrl] : profile image String url (Receiver profile image)
+class ChatScreenAppbar extends StatelessWidget implements PreferredSizeWidget {
+  final String titleString;
+  final String profileImageUrl;
+
+  ChatScreenAppbar(this.titleString, {this.profileImageUrl})
+      : preferredSize = Size.fromHeight(60.0);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      iconTheme: IconThemeData(color: Colors.white),
+      backgroundColor: Colors.lightBlue,
+      title: Wrap(
+        direction: Axis.horizontal,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: <Widget>[
+          //Profile image
+          CircleAvatar(
+            backgroundColor: Colors.black,
+            backgroundImage: CachedNetworkImageProvider(profileImageUrl),
+          ),
+          Padding(padding: EdgeInsets.only(left: 10),
+            child: Text(
+              titleString.titleCase(),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+      titleSpacing: 0.0,
     );
   }
 

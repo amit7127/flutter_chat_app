@@ -15,6 +15,8 @@ import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/home/HomePageBl
 import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginPage.dart';
 import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/settings/SettingsPage.dart';
 
+import '../chatting_page.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -163,6 +165,7 @@ class HomeScreenState extends State<HomeScreen> {
                     fontSize: 16),
               ),
               subtitle: Text(S.of(context).user_joined_text(joinedDate)),
+              onTap: () => navigateToChatPage(user),
             ),
           );
         });
@@ -207,5 +210,13 @@ class HomeScreenState extends State<HomeScreen> {
     setState(() {
       S.load(locale);
     });
+  }
+
+  void navigateToChatPage(User receiverUser) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ChatPage(receiverUser.id,
+                receiverUser.nickname, receiverUser.photoUrl)));
   }
 }
