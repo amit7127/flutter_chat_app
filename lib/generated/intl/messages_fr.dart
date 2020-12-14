@@ -20,7 +20,7 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'fr';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function> {
+  static _notInlinedMessages(_) => <String, Function> {
     "accountSettings" : MessageLookupByLibrary.simpleMessage("Paramètres du compte"),
     "bioHint" : MessageLookupByLibrary.simpleMessage("Veuillez écrire quelque chose sur vous."),
     "bioLabel" : MessageLookupByLibrary.simpleMessage("Au propos de vous"),
