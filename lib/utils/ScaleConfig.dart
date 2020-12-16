@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 ///
 /// Created by  on 11/25/2020.
@@ -6,7 +7,6 @@ import 'package:flutter/material.dart';
 ///
 
 class ScaleConfig {
-  static MediaQueryData _mediaQueryData;
   static double screenWidth;          //360.0
   static double screenHeight;         //692.0
   static double blockSizeHorizontal;    //3.6
@@ -22,10 +22,9 @@ class ScaleConfig {
 
   static double editProfileImageSize;
 
-  void init(BuildContext context){
-    _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData.size.width;
-    screenHeight = _mediaQueryData.size.height;
+  void init(){
+    screenWidth = ui.window.physicalSize.width / ui.window.devicePixelRatio;;
+    screenHeight = ui.window.physicalSize.height / ui.window.devicePixelRatio;;
     blockSizeHorizontal = screenWidth / 100;
     blockSizeVertical = screenHeight / 100;
 

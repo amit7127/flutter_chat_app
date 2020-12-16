@@ -7,7 +7,7 @@ import 'package:flutter_chat_app/models/User.dart';
 import 'package:flutter_chat_app/utils/AppBloc.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/settings/SettingsRepository.dart';
+import 'SettingsRepository.dart';
 
 ///
 /// Created by  on 11/23/2020.

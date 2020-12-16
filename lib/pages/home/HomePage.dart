@@ -4,6 +4,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_chat_app/generated/l10n.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
 import 'package:flutter_chat_app/models/User.dart';
+import 'package:flutter_chat_app/pages/login/LoginPage.dart';
+import 'package:flutter_chat_app/pages/settings/SettingsPage.dart';
 import 'package:flutter_chat_app/utils/extension_utils.dart';
 import 'package:flutter_chat_app/widgets/AppDrawer.dart';
 import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
@@ -11,11 +13,9 @@ import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/home/HomePageBloc.dart';
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginPage.dart';
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/settings/SettingsPage.dart';
-
 import '../chatting_page.dart';
+import 'HomePageBloc.dart';
+import 'new_page.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -45,8 +45,8 @@ class HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       key: _drawerKey,
-      appBar: HomeAppBar(S.of(context).homePageTitle, searchEditingController,
-          openDrawer, navigateToSettingsPage),
+      appBar: HomeAppBar(appBarTitle : S.of(context).homePageTitle, searchEditingController : searchEditingController,
+          onSettingsButtonTapped : openDrawer, onProfileButtonClicked : navigateToSettingsPage),
       endDrawer: StreamBuilder<User>(
         stream: bloc.userData.stream,
         builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
@@ -174,7 +174,9 @@ class HomeScreenState extends State<HomeScreen> {
   ///Search user in fire store
   void _searchUser() {
     var searchQuery = searchEditingController.text;
-    bloc.searchUsers(searchQuery);
+    if (searchQuery.isNotEmpty) {
+      bloc.searchUsers(searchQuery);
+    }
   }
 
   ///Logout user

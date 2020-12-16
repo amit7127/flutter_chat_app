@@ -15,9 +15,8 @@ class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   final Function onSettingsButtonTapped;
   final Function onProfileButtonClicked;
 
-  HomeAppBar(this.appBarTitle, this.searchEditingController,
-      this.onSettingsButtonTapped, this.onProfileButtonClicked)
-      : preferredSize = Size.fromHeight(60.0);
+  HomeAppBar({Key key, this.appBarTitle, this.searchEditingController,
+      this.onSettingsButtonTapped, this.onProfileButtonClicked}) : super(key : key);
 
   @override
   State<StatefulWidget> createState() {
@@ -25,7 +24,7 @@ class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   }
 
   @override
-  final Size preferredSize;
+  final Size preferredSize = Size.fromHeight(60.0);
 }
 
 class HomeAppBarState extends State<HomeAppBar> {

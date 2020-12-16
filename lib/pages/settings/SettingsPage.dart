@@ -13,7 +13,7 @@ import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/settings/SettingsBloc.dart';
+import 'SettingsBloc.dart';
 
 ///
 /// Created by  on 11/4/2020.

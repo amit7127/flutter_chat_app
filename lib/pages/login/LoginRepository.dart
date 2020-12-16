@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/providers/LoginProvider.dart';
+import 'package:flutter_chat_app/providers/LoginProvider.dart';
 
 ///
 /// Created by Amit Kumar Sahoo on 10/29/2020

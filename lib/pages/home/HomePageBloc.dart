@@ -3,10 +3,9 @@ import 'package:flutter_chat_app/generated/l10n.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
 import 'package:flutter_chat_app/models/User.dart';
 import 'package:flutter_chat_app/pages/home/HomeRepsitory.dart';
+import 'package:flutter_chat_app/pages/login/LoginRepository.dart';
 import 'package:flutter_chat_app/utils/AppBloc.dart';
 import 'package:rxdart/rxdart.dart';
-
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginRepository.dart';
 
 ///
 /// Created by Amit Kumar Sahoo on 11/2/2020.

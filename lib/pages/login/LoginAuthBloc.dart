@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginRepository.dart';
 import 'package:flutter_chat_app/utils/AppBloc.dart';
 import 'package:rxdart/rxdart.dart';
+
+import 'LoginRepository.dart';
 
 ///
 /// Created by Amit Kumar Sahoo on 10/29/2020

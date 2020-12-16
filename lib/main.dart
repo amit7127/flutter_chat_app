@@ -1,20 +1,29 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'file:///D:/Practice%20Project/flutter_chat_app/lib/pages/login/LoginPage.dart';
-
 import 'generated/l10n.dart';
+import 'pages/login/LoginPage.dart';
+import 'utils/ScaleConfig.dart';
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //await Firebase.initializeApp();
 
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    ScaleConfig().init();
+
     return MaterialApp(
       title: 'Chat App',
       theme: ThemeData(primaryColor: Colors.blueAccent),
