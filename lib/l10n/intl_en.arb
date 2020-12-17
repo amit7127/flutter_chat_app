@@ -1,4 +1,6 @@
 {
+  "welcome_text": "Flutter Chat App",
+
   "hello": "Hello in English",
   "accountSettings": "Account Settings",
   "homePageTitle": "Home Page",
@@ -29,5 +31,9 @@
   "user_info_update_failed_message": "Unable to update data, please try again later.",
 
   "select_language": "Select Language",
-  "menu_edit_profile": "Edit Profile"
+  "menu_edit_profile": "Edit Profile",
+
+  "chat_image_upload_wait_message": "Image uploading please wait.",
+  "chat_image_upload_success_message": "Image uploaded successfully.",
+  "image_uploading_progress": "Uploading: {percentage}% Completed."
 }

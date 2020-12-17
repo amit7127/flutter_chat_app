@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_chat_app/generated/l10n.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
 import 'package:flutter_chat_app/pages/home/HomePage.dart';
 import 'package:flutter_chat_app/utils/ScaleConfig.dart';
@@ -57,30 +58,30 @@ class LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Flutter Chat App',
+              S.of(context).welcome_text,
               style: TextStyle(
-                  fontSize: 65.0, color: Colors.white, fontFamily: 'Signatra'),
+                  fontSize: ScaleConfig.blockSizeHorizontal * 18, color: Colors.white, fontFamily: 'Signatra'),
             ),
             GestureDetector(
               child: Container(
-                width: 260.0,
-                height: 50.0,
+                width: ScaleConfig.blockSizeHorizontal * 70,
+                height: ScaleConfig.blockSizeVertical * 8,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                       image:
                           AssetImage('assets/images/google_signin_button.png'),
                       fit: BoxFit.cover,
                     ),
-                    borderRadius: BorderRadius.circular(50.0)),
+                    //borderRadius: BorderRadius.circular(ScaleConfig.blockSizeHorizontal * 15)
+                ),
               ),
               onTap: () {
                 debugPrint('Google login clicked');
                 bloc.loginUser();
               },
             ),
-            TextField(),
             Padding(
-              padding: EdgeInsets.all(6.0),
+              padding: EdgeInsets.all(ScaleConfig.blockSizeHorizontal * 2),
               child: StreamBuilder<CommonsResponse<FirebaseUser>>(
                 stream: bloc.loginData.stream,
                 builder: (BuildContext context,
@@ -106,7 +107,7 @@ class LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(6.0),
+              padding: EdgeInsets.all(ScaleConfig.blockSizeHorizontal * 2),
               child: StreamBuilder<CommonsResponse<bool>>(
                 stream: bloc.isLogin.stream,
                 builder: (BuildContext context,
@@ -139,8 +140,9 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  ///After success login replace to Home page
   void navigateToHomePage() {
-    Navigator.push(context,
+    Navigator.pushReplacement(context,
         MaterialPageRoute<HomeScreen>(builder: (context) => HomeScreen()));
   }
 

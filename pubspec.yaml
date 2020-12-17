@@ -88,6 +88,7 @@ flutter:
   #         weight: 700
   assets:
     - assets/images/google_signin_button.png
+    - assets/images/chat_background.jpg
     - images/mimi1.gif
     - images/mimi2.gif
     - images/mimi3.gif

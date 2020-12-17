@@ -13,9 +13,8 @@ import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
-import '../chatting_page.dart';
+import '../chatting/chatting_page.dart';
 import 'HomePageBloc.dart';
-import 'new_page.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

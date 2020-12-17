@@ -4,6 +4,7 @@ class Constants {
 
   ///Storage dir name
   static const USER_PROFILE_DIR = 'profile';
+  static const CHAT_IMAGE_DIR = 'chat-images';
 
   static const USER_ID = 'id';
   static const USER_NICKNAME = 'nickname';

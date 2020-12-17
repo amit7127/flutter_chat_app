@@ -19,7 +19,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static m0(date) => "Joined: ${date}";
+  static m0(percentage) => "Uploading: ${percentage}% Completed.";
+
+  static m1(date) => "Joined: ${date}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -28,9 +30,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "bioHint" : MessageLookupByLibrary.simpleMessage("Please write something about yourself."),
     "bioLabel" : MessageLookupByLibrary.simpleMessage("About you"),
     "bioValidationErrorMessage" : MessageLookupByLibrary.simpleMessage("Please provide your bio. It should at-least 10 characters long"),
+    "chat_image_upload_success_message" : MessageLookupByLibrary.simpleMessage("Image uploaded successfully."),
+    "chat_image_upload_wait_message" : MessageLookupByLibrary.simpleMessage("Image uploading please wait."),
     "error_in_logout_message" : MessageLookupByLibrary.simpleMessage("Error: while logging out user."),
     "hello" : MessageLookupByLibrary.simpleMessage("Hello in English"),
     "homePageTitle" : MessageLookupByLibrary.simpleMessage("Home Page"),
+    "image_uploading_progress" : m0,
     "logoutButtonText" : MessageLookupByLibrary.simpleMessage("Logout"),
     "logout_success_message" : MessageLookupByLibrary.simpleMessage("User logged out successfully."),
     "logout_wait_message" : MessageLookupByLibrary.simpleMessage("Logging out user, please wait."),
@@ -50,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "user_info_update_failed_message" : MessageLookupByLibrary.simpleMessage("Unable to update data, please try again later."),
     "user_info_update_message" : MessageLookupByLibrary.simpleMessage("User data updating, please wait."),
     "user_info_update_success_message" : MessageLookupByLibrary.simpleMessage("UserData updated successfully"),
-    "user_joined_text" : m0
+    "user_joined_text" : m1,
+    "welcome_text" : MessageLookupByLibrary.simpleMessage("Flutter Chat App")
   };
 }

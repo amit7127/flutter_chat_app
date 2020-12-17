@@ -10,7 +10,7 @@ class EmojiStickerSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(child: GridView.count(
-      crossAxisCount: 3,
+      crossAxisCount: 5,
       children: List.generate(9, (index) {
         var stickerPath = 'images/mimi${index + 1}.gif';
         return FlatButton(

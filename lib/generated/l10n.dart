@@ -35,6 +35,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Flutter Chat App`
+  String get welcome_text {
+    return Intl.message(
+      'Flutter Chat App',
+      name: 'welcome_text',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Hello in English`
   String get hello {
     return Intl.message(
@@ -314,6 +324,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Image uploading please wait.`
+  String get chat_image_upload_wait_message {
+    return Intl.message(
+      'Image uploading please wait.',
+      name: 'chat_image_upload_wait_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image uploaded successfully.`
+  String get chat_image_upload_success_message {
+    return Intl.message(
+      'Image uploaded successfully.',
+      name: 'chat_image_upload_success_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Uploading: {percentage}% Completed.`
+  String image_uploading_progress(Object percentage) {
+    return Intl.message(
+      'Uploading: $percentage% Completed.',
+      name: 'image_uploading_progress',
+      desc: '',
+      args: [percentage],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -321,9 +361,9 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en'),
-      Locale.fromSubtags(languageCode: 'de'),
-      Locale.fromSubtags(languageCode: 'fr'),
+      Locale.fromSubtags(languageCode: 'en', countryCode: 'US', scriptCode: 'English'),
+      Locale.fromSubtags(languageCode: 'de', countryCode: 'Germany', scriptCode: 'Deutsch'),
+      Locale.fromSubtags(languageCode: 'fr', countryCode: 'France', scriptCode: 'French'),
     ];
   }
 

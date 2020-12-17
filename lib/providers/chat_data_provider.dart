@@ -1,0 +1,45 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_chat_app/utils/Constants.dart';
+
+///
+/// Created by Amit Kumar Sahoo (amit.sahoo@mindfiresolutions.com)
+/// on 17-12-2020.
+/// chat_data_provider.dart :
+///
+class ChatDataProvider {
+  StorageReference firebaseStorageReference =
+  FirebaseStorage.instance.ref().child(Constants.CHAT_IMAGE_DIR);
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  Future<String> getCurrentUSerId() async {
+    final user = await auth.currentUser();
+    return user.uid;
+  }
+
+  void uploadChatImageToFireStore(
+      File imageFile, Function onSuccess, Function onFailure, Function progressUpdate) async {
+
+    var fileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+    var chatImageRef = firebaseStorageReference.child(fileName);
+
+    var storageUploadTask = chatImageRef.putFile(imageFile);
+    storageUploadTask.events.listen((event) {
+      var _progress = event.snapshot.bytesTransferred.toDouble() /
+          event.snapshot.totalByteCount.toDouble() * 100;
+      progressUpdate(_progress);
+    }).onError((error) {
+      onFailure(error);
+    });
+
+    await storageUploadTask.onComplete.then((snapshot) {
+      snapshot.ref.getDownloadURL().then((url) {
+        onSuccess(url);
+      });
+    });
+
+  }
+}
