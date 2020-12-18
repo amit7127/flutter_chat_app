@@ -3,10 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
+import 'package:flutter_chat_app/models/message.dart';
+import 'package:flutter_chat_app/utils/Constants.dart';
 import 'package:flutter_chat_app/utils/ScaleConfig.dart';
 import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
 import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
 import 'package:flutter_chat_app/widgets/emoji_selector_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'chatting_page_bloc.dart';
@@ -79,20 +82,11 @@ class ChatListState extends State<ChatListScreen> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
+                  //Message list
                   Expanded(child: listMessages()),
 
-                  StreamBuilder<bool>(
-                      stream: _bloc.isStickerEnabled,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<bool> snapshots) {
-                        if (snapshots.hasData) {
-                          return snapshots.data
-                              ? EmojiStickerSelector()
-                              : Container();
-                        } else {
-                          return Container();
-                        }
-                      }),
+                  //Emoji Layout
+                  emojiLayout(),
 
                   //Send message layout
                   sendMessageLayout()
@@ -103,6 +97,26 @@ class ChatListState extends State<ChatListScreen> {
     );
   }
 
+  ///Emoji layout to send message
+  Widget emojiLayout() {
+    return StreamBuilder<bool>(
+        stream: _bloc.isStickerEnabled,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshots) {
+          if (snapshots.hasData) {
+            return snapshots.data
+                ? EmojiStickerSelector(onEmojiSelect: onEmojiMessageSelected)
+                : Container();
+          } else {
+            return Container();
+          }
+        });
+  }
+
+  void onEmojiMessageSelected(String emoji) {
+    sendMessage(emoji, Constants.EMOJI_MESSAGE_TYPE);
+    _bloc.toggleStickerView();
+  }
+
   void initializeLoader(BuildContext context) {
     // set up the AlertDialog
     loader = AlertDialog(
@@ -111,10 +125,15 @@ class ChatListState extends State<ChatListScreen> {
           builder: (BuildContext context,
               AsyncSnapshot<CommonsResponse<String>> snapshots) {
             if (snapshots.hasData && snapshots.data != null) {
-              if(snapshots.data.status != Status.LOADING){
+              if (snapshots.data.status != Status.LOADING) {
                 Timer(Duration(seconds: 3), () {
                   Navigator.of(context, rootNavigator: true).pop('dialog');
                 });
+
+                if (snapshots.data.status == Status.COMPLETED) {
+                  sendMessage(
+                      snapshots.data.data, Constants.IMAGE_MESSAGE_TYPE);
+                }
               }
               return Text(snapshots.data.message);
             } else {
@@ -189,10 +208,27 @@ class ChatListState extends State<ChatListScreen> {
           Material(
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 1, vertical: 1),
-              child: IconButton(
-                icon: Icon(Icons.send),
-                color: Colors.lightBlueAccent,
-                onPressed: () => print('send button clicked'),
+              child: StreamBuilder<CommonsResponse<bool>>(
+                stream: _bloc.isMessageSent,
+                builder: (BuildContext context, AsyncSnapshot<CommonsResponse<bool>> snapshot) {
+                  if(snapshot.hasData){
+                    if(snapshot.data.status == Status.COMPLETED){
+                      if (messageEditingController != null) {
+                        Timer(Duration(milliseconds: 20), () {
+                          messageEditingController.clear();
+                        });
+                      }
+                      return sendButtonWidget();
+                    } else if (snapshot.data.status == Status.ERROR){
+                      Fluttertoast.showToast(msg: snapshot.data.message);
+                      return sendButtonWidget();
+                    } else {
+                      return messageSendLoader();
+                    }
+                  } else {
+                    return sendButtonWidget();
+                  }
+                },
               ),
               color: Colors.white,
             ),
@@ -205,6 +241,25 @@ class ChatListState extends State<ChatListScreen> {
         border: Border(top: BorderSide(color: Colors.grey, width: 0.5)),
       ),
     ));
+  }
+
+  Widget messageSendLoader(){
+    return Container(
+      width: 36,
+      height: 36,
+      alignment: Alignment.center,
+      padding: EdgeInsets.only(bottom: 14, right: 14),
+      child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.yellow),),
+    );
+  }
+
+  Widget sendButtonWidget(){
+    return IconButton(
+      icon: Icon(Icons.send),
+      color: Colors.lightBlueAccent,
+      onPressed: () => sendMessage(messageEditingController.text,
+          Constants.TEXT_MESSAGE_TYPE),
+    );
   }
 
   ///get image from the device gallery
@@ -237,5 +292,11 @@ class ChatListState extends State<ChatListScreen> {
       },
     );
     _bloc.uploadChatImage(newImageSelected, context);
+  }
+
+  void sendMessage(String messageString, int messageCategory) {
+    var chatMessage =
+        Message('', widget.receiverId, messageString, messageCategory);
+    _bloc.sendChatMessage(chatMessage);
   }
 }

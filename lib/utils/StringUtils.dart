@@ -13,4 +13,9 @@ class StringUtils {
     }
     return caseSearchList;
   }
+
+  static String getChatRoomId(List<String> usersList) {
+    usersList.sort();
+    return usersList.join('-');
+  }
 }

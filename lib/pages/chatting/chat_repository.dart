@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter_chat_app/models/message.dart';
 import 'package:flutter_chat_app/providers/chat_data_provider.dart';
 
 ///
@@ -12,5 +13,9 @@ class ChatRepo {
 
   void uploadChatImage(File imageFile, Function onSuccess, Function onFailure, Function progressUpdate){
     return _chatDataProvider.uploadChatImageToFireStore(imageFile, onSuccess, onFailure, progressUpdate);
+  }
+
+  void sendMessage(Message message, Function onSuccess, Function onError){
+    return _chatDataProvider.sendMessage(message, onSuccess, onError);
   }
 }

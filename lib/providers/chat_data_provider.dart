@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_chat_app/models/message.dart';
 import 'package:flutter_chat_app/utils/Constants.dart';
+import 'package:flutter_chat_app/utils/StringUtils.dart';
 
 ///
 /// Created by Amit Kumar Sahoo (amit.sahoo@mindfiresolutions.com)
@@ -40,6 +43,21 @@ class ChatDataProvider {
         onSuccess(url);
       });
     });
+  }
 
+  ///Send message
+  void sendMessage(Message message, Function onSuccess, Function onError) async{
+    message.senderId = await getCurrentUSerId();
+    var chatRoomId = StringUtils.getChatRoomId([message.senderId, message.receiverId]);
+    var docRef = await Firestore.instance.collection(Constants.MESSAGE_TABLE_NAME).document(chatRoomId);
+
+    message.messageId = DateTime.now().millisecondsSinceEpoch.toString();
+    message.timeStamp = FieldValue.serverTimestamp();
+
+    await docRef.collection(docRef.documentID)
+        .document(message.messageId)
+        .setData(message.toMap()).then((value) {
+      onSuccess();
+    }, onError: (e) => onError(e));
   }
 }

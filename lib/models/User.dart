@@ -47,15 +47,6 @@ class User {
   User(this._id, this._nickname, this._photoUrl, [this._aboutMe, this._createdAt,
       this._chattingWith]);
 
-  // User.toDataSnapshot(DocumentSnapshot snapshot) {
-  //   User(
-  //     snapshot.documentID,
-  //     snapshot['photoUrl'],
-  //     snapshot['nickname'],
-  //     snapshot['createdAt'],
-  //   );
-  //}
-
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
 
