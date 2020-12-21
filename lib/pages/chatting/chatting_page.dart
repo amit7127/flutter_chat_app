@@ -80,6 +80,9 @@ class ChatListState extends State<ChatListScreen> {
                 ),
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   //Message list
                   listMessages(),
@@ -91,7 +94,7 @@ class ChatListState extends State<ChatListScreen> {
                   sendMessageLayout()
                 ],
               )
-          )
+              )
         ],
       ),
     );
@@ -144,10 +147,7 @@ class ChatListState extends State<ChatListScreen> {
   }
 
   Widget listMessages() {
-    return Expanded(
-        flex: 1,
-        child: Container(
-            constraints: BoxConstraints.expand(),
+    return Flexible(child: Container(
         child: StreamBuilder(
           stream: _bloc.messageList,
           builder: (context, snapshot) {
@@ -250,8 +250,7 @@ class ChatListState extends State<ChatListScreen> {
   }
 
   Widget sendMessageLayout() {
-    return Flexible(
-        child: Container(
+    return Container(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
@@ -340,7 +339,7 @@ class ChatListState extends State<ChatListScreen> {
         color: Colors.white,
         border: Border(top: BorderSide(color: Colors.grey, width: 0.5)),
       ),
-    ));
+    );
   }
 
   Widget messageSendLoader() {
