@@ -60,4 +60,15 @@ class ChatDataProvider {
       onSuccess();
     }, onError: (e) => onError(e));
   }
+
+  Future<Stream<QuerySnapshot>> getChatList(String otherUserId) async{
+    var currentUserId = await getCurrentUSerId();
+    var chatRoomId = StringUtils.getChatRoomId([currentUserId, otherUserId]);
+
+    var snapShots = Firestore.instance
+        .collection(Constants.MESSAGE_TABLE_NAME).document(chatRoomId).collection(chatRoomId)
+        .snapshots();
+
+    return snapShots;
+  }
 }

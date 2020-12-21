@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_chat_app/models/message.dart';
 import 'package:flutter_chat_app/providers/chat_data_provider.dart';
 
@@ -17,5 +18,9 @@ class ChatRepo {
 
   void sendMessage(Message message, Function onSuccess, Function onError){
     return _chatDataProvider.sendMessage(message, onSuccess, onError);
+  }
+
+  Future<Stream<QuerySnapshot>> getMessageList(String otherUserId){
+    return _chatDataProvider.getChatList(otherUserId);
   }
 }

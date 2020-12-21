@@ -14,6 +14,7 @@ class Message {
   String _message;
   int _messageType;
   FieldValue _timeStamp;
+  Timestamp _timeStampFromServer;
 
   Message(this._senderId, this._receiverId, this._message, this._messageType);
 
@@ -53,13 +54,19 @@ class Message {
     _timeStamp = value;
   }
 
+  Timestamp get timeStampFromServer => _timeStampFromServer;
+
+  set timeStampFromServer(Timestamp value) {
+    _timeStampFromServer = value;
+  }
+
   Message.fromMap(Map<String, dynamic> map) {
     _messageId = map[Constants.MESSAGE_ID];
     _senderId = map[Constants.MESSAGE_SENDER_ID];
     _receiverId = map[Constants.MESSAGE_RECEIVER_ID];
     _message = map[Constants.MESSAGE_TEXT];
     _messageType = map[Constants.MESSAGE_TYPE];
-    _timeStamp = map[Constants.MESSAGE_TIMESTAMP];
+    timeStampFromServer = map[Constants.MESSAGE_TIMESTAMP];
   }
 
   Map<String, dynamic> toMap() {

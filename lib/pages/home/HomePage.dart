@@ -25,6 +25,7 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   HomeBloc bloc;
+  User currentUser;
   TextEditingController searchEditingController;
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
@@ -51,6 +52,7 @@ class HomeScreenState extends State<HomeScreen> {
         builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             //If data available show circular profile image
+            currentUser = snapshot.data;
             return AppDrawer(snapshot.data.photoUrl, changeLanguage,
                 navigateToSettingsPage, logoutUser);
           } else {
@@ -217,7 +219,6 @@ class HomeScreenState extends State<HomeScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ChatPage(receiverUser.id,
-                receiverUser.nickname, receiverUser.photoUrl)));
+            builder: (context) => ChatPage(receiverUser, currentUser)));
   }
 }

@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
+import 'package:flutter_chat_app/models/User.dart';
 import 'package:flutter_chat_app/models/message.dart';
 import 'package:flutter_chat_app/utils/Constants.dart';
 import 'package:flutter_chat_app/utils/ScaleConfig.dart';
 import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
-import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
 import 'package:flutter_chat_app/widgets/emoji_selector_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,29 +20,29 @@ import 'chatting_page_bloc.dart';
 /// chatting_page.dart :
 ///
 class ChatPage extends StatelessWidget {
-  final String receiverId;
-  final String receiverName;
-  final String receiverProfilePic;
+  final User receiver;
+  final User sender;
 
-  ChatPage(this.receiverId, this.receiverName, this.receiverProfilePic);
+  ChatPage(this.receiver, this.sender);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          ChatScreenAppbar(receiverName, profileImageUrl: receiverProfilePic),
+      appBar: ChatScreenAppbar(receiver.nickname,
+          profileImageUrl: receiver.photoUrl),
       body: ChatListScreen(
-          receiverId: receiverId, receiverPhotoUrl: receiverProfilePic),
+        receiver: receiver,
+        sender: sender,
+      ),
     );
   }
 }
 
 class ChatListScreen extends StatefulWidget {
-  final String receiverId;
-  final String receiverPhotoUrl;
+  final User receiver;
+  final User sender;
 
-  ChatListScreen(
-      {Key key, @required this.receiverId, @required this.receiverPhotoUrl});
+  ChatListScreen({Key key, @required this.receiver, @required this.sender});
 
   @override
   State<StatefulWidget> createState() {
@@ -59,6 +60,7 @@ class ChatListState extends State<ChatListScreen> {
   @override
   void initState() {
     _bloc = ChatPageBloc();
+    _bloc.getMessageList(widget.receiver.id);
     super.initState();
   }
 
@@ -78,12 +80,9 @@ class ChatListState extends State<ChatListScreen> {
                 ),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   //Message list
-                  Expanded(child: listMessages()),
+                  listMessages(),
 
                   //Emoji Layout
                   emojiLayout(),
@@ -91,7 +90,8 @@ class ChatListState extends State<ChatListScreen> {
                   //Send message layout
                   sendMessageLayout()
                 ],
-              ))
+              )
+          )
         ],
       ),
     );
@@ -144,10 +144,109 @@ class ChatListState extends State<ChatListScreen> {
   }
 
   Widget listMessages() {
-    return Container(
-        child: Center(
-      child: circularProgress(),
-    ));
+    return Expanded(
+        flex: 1,
+        child: Container(
+            constraints: BoxConstraints.expand(),
+        child: StreamBuilder(
+          stream: _bloc.messageList,
+          builder: (context, snapshot) {
+            if(snapshot.hasData && snapshot.data != null){
+              return ListView.builder(
+                reverse: true,
+                padding: EdgeInsets.all(10.0),
+                itemBuilder: (context, index) =>
+                    buildChatLayout(snapshot.data.documents[index]),
+                itemCount: snapshot.data.documents.length,
+              );
+            } else {
+              return Center(
+                child: Text('snapshot.error'),
+              );
+            }
+          },
+        )));
+  }
+
+  Widget buildChatLayout(DocumentSnapshot snapshot) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            mainAxisAlignment:
+                snapshot[Constants.MESSAGE_RECEIVER_ID] == widget.receiver.id
+                    ? MainAxisAlignment.end
+                    : MainAxisAlignment.start,
+            children: <Widget>[
+              snapshot[Constants.MESSAGE_RECEIVER_ID] == widget.receiver.id
+                  ? CircleAvatar(
+                      backgroundImage: widget.receiver.photoUrl == null
+                          ? Icon(Icons.account_box_outlined)
+                          : NetworkImage(widget.receiver.photoUrl),
+                      radius: 20.0,
+                    )
+                  : CircleAvatar(
+                      backgroundImage: widget.sender.photoUrl == null
+                          ? Icon(Icons.account_box_outlined)
+                          : NetworkImage(widget.sender.photoUrl),
+                      radius: 20.0,
+                    ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  snapshot[Constants.MESSAGE_RECEIVER_ID] == widget.receiver.id
+                      ? Text(
+                          widget.receiver.nickname ?? '',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold),
+                        )
+                      : Text(
+                          widget.sender.nickname ?? '',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                  Text(
+                    snapshot[Constants.MESSAGE_TEXT],
+                    style: TextStyle(color: Colors.black, fontSize: 14.0),
+                  )
+                  // snapshot['type'] == 'text'
+                  //     ? Text(
+                  //   snapshot['message'],
+                  //   style: TextStyle(color: Colors.black, fontSize: 14.0),
+                  // )
+                  //     : InkWell(
+                  //   onTap: (() {
+                  //     // Navigator.push(
+                  //     //     context,
+                  //     //     new MaterialPageRoute(
+                  //     //         builder: (context) => FullScreenImage(photoUrl: snapshot['photoUrl'],)));
+                  //   }),
+                  //   child: Hero(
+                  //     tag: snapshot['photoUrl'],
+                  //     child: FadeInImage(
+                  //       image: NetworkImage(snapshot['photoUrl']),
+                  //       placeholder: AssetImage('assets/blankimage.png'),
+                  //       width: 200.0,
+                  //       height: 200.0,
+                  //     ),
+                  //   ),
+                  // )
+                ],
+              )
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   Widget sendMessageLayout() {
@@ -210,16 +309,17 @@ class ChatListState extends State<ChatListScreen> {
               margin: EdgeInsets.symmetric(horizontal: 1, vertical: 1),
               child: StreamBuilder<CommonsResponse<bool>>(
                 stream: _bloc.isMessageSent,
-                builder: (BuildContext context, AsyncSnapshot<CommonsResponse<bool>> snapshot) {
-                  if(snapshot.hasData){
-                    if(snapshot.data.status == Status.COMPLETED){
+                builder: (BuildContext context,
+                    AsyncSnapshot<CommonsResponse<bool>> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data.status == Status.COMPLETED) {
                       if (messageEditingController != null) {
                         Timer(Duration(milliseconds: 20), () {
                           messageEditingController.clear();
                         });
                       }
                       return sendButtonWidget();
-                    } else if (snapshot.data.status == Status.ERROR){
+                    } else if (snapshot.data.status == Status.ERROR) {
                       Fluttertoast.showToast(msg: snapshot.data.message);
                       return sendButtonWidget();
                     } else {
@@ -243,22 +343,24 @@ class ChatListState extends State<ChatListScreen> {
     ));
   }
 
-  Widget messageSendLoader(){
+  Widget messageSendLoader() {
     return Container(
       width: 36,
       height: 36,
       alignment: Alignment.center,
       padding: EdgeInsets.only(bottom: 14, right: 14),
-      child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.yellow),),
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation(Colors.yellow),
+      ),
     );
   }
 
-  Widget sendButtonWidget(){
+  Widget sendButtonWidget() {
     return IconButton(
       icon: Icon(Icons.send),
       color: Colors.lightBlueAccent,
-      onPressed: () => sendMessage(messageEditingController.text,
-          Constants.TEXT_MESSAGE_TYPE),
+      onPressed: () => sendMessage(
+          messageEditingController.text, Constants.TEXT_MESSAGE_TYPE),
     );
   }
 
@@ -296,7 +398,7 @@ class ChatListState extends State<ChatListScreen> {
 
   void sendMessage(String messageString, int messageCategory) {
     var chatMessage =
-        Message('', widget.receiverId, messageString, messageCategory);
+        Message('', widget.receiver.id, messageString, messageCategory);
     _bloc.sendChatMessage(chatMessage);
   }
 }
