@@ -61,13 +61,13 @@ class ChatDataProvider {
     }, onError: (e) => onError(e));
   }
 
-  Future<Stream<QuerySnapshot>> getChatList(String otherUserId) async{
-    var currentUserId = await getCurrentUSerId();
+  Stream<List<Message>> getChatList(String otherUserId, String currentUserId) {
     var chatRoomId = StringUtils.getChatRoomId([currentUserId, otherUserId]);
 
     var snapShots = Firestore.instance
-        .collection(Constants.MESSAGE_TABLE_NAME).document(chatRoomId).collection(chatRoomId)
-        .snapshots();
+        .collection(Constants.MESSAGE_TABLE_NAME).document(chatRoomId).collection(chatRoomId).orderBy(Constants.MESSAGE_TIMESTAMP, descending: true)
+        .snapshots()
+    .map((snapShot) => snapShot.documents.map((message) => Message.fromMap(message.data)).toList());
 
     return snapShots;
   }

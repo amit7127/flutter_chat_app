@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
 import 'package:flutter_chat_app/models/User.dart';
 import 'package:flutter_chat_app/models/message.dart';
+import 'package:flutter_chat_app/pages/chatting/chat_list_widget.dart';
 import 'package:flutter_chat_app/utils/Constants.dart';
 import 'package:flutter_chat_app/utils/ScaleConfig.dart';
 import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
@@ -60,7 +61,7 @@ class ChatListState extends State<ChatListScreen> {
   @override
   void initState() {
     _bloc = ChatPageBloc();
-    _bloc.getMessageList(widget.receiver.id);
+    //_bloc.getMessageList(widget.receiver.id, widget.sender.id);
     super.initState();
   }
 
@@ -85,7 +86,8 @@ class ChatListState extends State<ChatListScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   //Message list
-                  listMessages(),
+                  // listMessages(),
+                  ChatListWidget(sender: widget.sender, receiver: widget.receiver,),
 
                   //Emoji Layout
                   emojiLayout(),
@@ -156,8 +158,8 @@ class ChatListState extends State<ChatListScreen> {
                 reverse: true,
                 padding: EdgeInsets.all(10.0),
                 itemBuilder: (context, index) =>
-                    buildChatLayout(snapshot.data.documents[index]),
-                itemCount: snapshot.data.documents.length,
+                    buildChatLayout(snapshot.data[index]),
+                itemCount: snapshot.data.length,
               );
             } else {
               return Center(
@@ -168,7 +170,7 @@ class ChatListState extends State<ChatListScreen> {
         )));
   }
 
-  Widget buildChatLayout(DocumentSnapshot snapshot) {
+  Widget buildChatLayout(Message message) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -176,11 +178,11 @@ class ChatListState extends State<ChatListScreen> {
           padding: const EdgeInsets.all(12.0),
           child: Row(
             mainAxisAlignment:
-                snapshot[Constants.MESSAGE_RECEIVER_ID] == widget.receiver.id
+            message.receiverId == widget.receiver.id
                     ? MainAxisAlignment.end
                     : MainAxisAlignment.start,
             children: <Widget>[
-              snapshot[Constants.MESSAGE_RECEIVER_ID] == widget.receiver.id
+              message.receiverId == widget.receiver.id
                   ? CircleAvatar(
                       backgroundImage: widget.receiver.photoUrl == null
                           ? Icon(Icons.account_box_outlined)
@@ -199,7 +201,7 @@ class ChatListState extends State<ChatListScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  snapshot[Constants.MESSAGE_RECEIVER_ID] == widget.receiver.id
+                  message.receiverId == widget.receiver.id
                       ? Text(
                           widget.receiver.nickname ?? '',
                           style: TextStyle(
@@ -215,7 +217,7 @@ class ChatListState extends State<ChatListScreen> {
                               fontWeight: FontWeight.bold),
                         ),
                   Text(
-                    snapshot[Constants.MESSAGE_TEXT],
+                    message.message,
                     style: TextStyle(color: Colors.black, fontSize: 14.0),
                   )
                   // snapshot['type'] == 'text'
@@ -358,8 +360,11 @@ class ChatListState extends State<ChatListScreen> {
     return IconButton(
       icon: Icon(Icons.send),
       color: Colors.lightBlueAccent,
-      onPressed: () => sendMessage(
-          messageEditingController.text, Constants.TEXT_MESSAGE_TYPE),
+      onPressed: () {
+        if(messageEditingController.text.isNotEmpty){
+          sendMessage(messageEditingController.text, Constants.TEXT_MESSAGE_TYPE);
+        }
+      },
     );
   }
 

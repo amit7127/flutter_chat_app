@@ -20,7 +20,7 @@ class ChatRepo {
     return _chatDataProvider.sendMessage(message, onSuccess, onError);
   }
 
-  Future<Stream<QuerySnapshot>> getMessageList(String otherUserId){
-    return _chatDataProvider.getChatList(otherUserId);
+  Stream<List<Message>> getMessageList(String otherUserId, String currentUserId){
+    return _chatDataProvider.getChatList(otherUserId, currentUserId);
   }
 }

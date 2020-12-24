@@ -20,7 +20,7 @@ class ChatPageBloc implements AppBlock {
   final BehaviorSubject<CommonsResponse<String>> _imageUploadTask =
       BehaviorSubject<CommonsResponse<String>>();
   final BehaviorSubject<CommonsResponse<bool>> _isMessageSent = BehaviorSubject<CommonsResponse<bool>>();
-  final BehaviorSubject<QuerySnapshot> _messageList = BehaviorSubject<QuerySnapshot>();
+  final BehaviorSubject<List<Message>> _messageList = BehaviorSubject<List<Message>>();
 
   ChatPageBloc() {
     _isStickerEnabled.add(false);
@@ -30,7 +30,7 @@ class ChatPageBloc implements AppBlock {
   BehaviorSubject<CommonsResponse<String>> get imageUploadTask =>
       _imageUploadTask;
   BehaviorSubject<CommonsResponse<bool>> get isMessageSent => _isMessageSent;
-  BehaviorSubject<QuerySnapshot> get messageList => _messageList;
+  BehaviorSubject<List<Message>> get messageList => _messageList;
 
   void toggleStickerView() {
     _isStickerEnabled.add(!_isStickerEnabled.value);
@@ -56,8 +56,8 @@ class ChatPageBloc implements AppBlock {
         (error) => CommonsResponse.error('Message sending failed'));
   }
 
-  void getMessageList(String otherUserId) async{
-    var chatDocumentList = await _repo.getMessageList(otherUserId);
+  void getMessageList(String otherUserId, String currentUserId) async{
+    var chatDocumentList = await _repo.getMessageList(otherUserId, currentUserId);
     if(chatDocumentList != null){
       await _messageList.addStream(chatDocumentList);
     } else {

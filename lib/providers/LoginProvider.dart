@@ -61,7 +61,7 @@ class LoginProvider {
         //Write data to local
         currentUser = firebaseUser;
         var user = User(
-            documentSnapshots[0][Constants.USER_TABLE_NAME],
+            documentSnapshots[0][Constants.USER_ID],
             documentSnapshots[0][Constants.USER_NICKNAME],
             documentSnapshots[0][Constants.USER_PHOTOURL],
             documentSnapshots[0][Constants.USER_ABOUTME]);

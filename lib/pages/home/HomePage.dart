@@ -64,6 +64,19 @@ class HomeScreenState extends State<HomeScreen> {
       ),
       body: Stack(
         children: <Widget>[
+          StreamBuilder<User>(
+            stream: bloc.userData.stream,
+            builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+              if (snapshot.hasData && snapshot.data != null) {
+                //If data available show circular profile image
+                currentUser = snapshot.data;
+                return Container();
+              } else {
+                //Data is not available or data is empty for the profile image, so show placeholder
+                return circularProgress();
+              }
+            },
+          ),
           StreamBuilder<CommonsResponse<List<User>>>(
               stream: bloc.userFromSearch.stream,
               builder: (BuildContext context,
