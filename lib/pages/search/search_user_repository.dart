@@ -7,7 +7,7 @@ import 'package:flutter_chat_app/utils/PreferenceUtils.dart';
 /// Created by  on 12/7/2020.
 /// search_user_repository.dart :
 ///
-class SearchRepository{
+class SearchRepository {
   final UserDetailsProvider _userDetailsProvider = UserDetailsProvider();
 
   ///Get user details from the device storage
@@ -15,8 +15,13 @@ class SearchRepository{
     return PreferenceUtils.getUserDetailsFromPreference();
   }
 
+  Future<String> getCurrentUserIdFromPreference() async {
+    var user = await PreferenceUtils.getUserDetailsFromPreference();
+    return user.id;
+  }
+
   ///Get users list from string name
-  Future<QuerySnapshot> getListOfUsersFromString(String stringQuery){
+  Future<QuerySnapshot> getListOfUsersFromString(String stringQuery) {
     return _userDetailsProvider.fetchUsersFromStringQuery(stringQuery);
   }
 }
