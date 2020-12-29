@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "bioValidationErrorMessage" : MessageLookupByLibrary.simpleMessage("Please provide your bio. It should at-least 10 characters long"),
     "chat_image_upload_success_message" : MessageLookupByLibrary.simpleMessage("Image uploaded successfully."),
     "chat_image_upload_wait_message" : MessageLookupByLibrary.simpleMessage("Image uploading please wait."),
+    "chat_message_fetch_error" : MessageLookupByLibrary.simpleMessage("Unable to fetch previous conversation."),
     "error_in_logout_message" : MessageLookupByLibrary.simpleMessage("Error: while logging out user."),
     "hello" : MessageLookupByLibrary.simpleMessage("Hello in English"),
     "homePageTitle" : MessageLookupByLibrary.simpleMessage("Home Page"),
@@ -40,6 +41,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "logout_success_message" : MessageLookupByLibrary.simpleMessage("User logged out successfully."),
     "logout_wait_message" : MessageLookupByLibrary.simpleMessage("Logging out user, please wait."),
     "menu_edit_profile" : MessageLookupByLibrary.simpleMessage("Edit Profile"),
+    "message_sending_wait" : MessageLookupByLibrary.simpleMessage("Message sending, please wait."),
+    "message_sent_failed" : MessageLookupByLibrary.simpleMessage("Message sending failed"),
+    "message_sent_success" : MessageLookupByLibrary.simpleMessage("Message sent"),
     "nickNameHint" : MessageLookupByLibrary.simpleMessage("e.g - Amit/Nick"),
     "nickNameLabel" : MessageLookupByLibrary.simpleMessage("Nick Name"),
     "nickNameValidationErrorMessage" : MessageLookupByLibrary.simpleMessage("Please enter your Nick name"),
@@ -56,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "user_info_update_message" : MessageLookupByLibrary.simpleMessage("User data updating, please wait."),
     "user_info_update_success_message" : MessageLookupByLibrary.simpleMessage("UserData updated successfully"),
     "user_joined_text" : m1,
-    "welcome_text" : MessageLookupByLibrary.simpleMessage("Flutter Chat App")
+    "welcome_text" : MessageLookupByLibrary.simpleMessage("Flutter Chat App"),
+    "yesterday_string" : MessageLookupByLibrary.simpleMessage("Yesterday")
   };
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_chat_app/models/User.dart';
 import 'package:flutter_chat_app/models/message.dart';
 import 'package:flutter_chat_app/providers/chat_data_provider.dart';
 
@@ -16,8 +17,8 @@ class ChatRepo {
     return _chatDataProvider.uploadChatImageToFireStore(imageFile, onSuccess, onFailure, progressUpdate);
   }
 
-  void sendMessage(Message message, Function onSuccess, Function onError){
-    return _chatDataProvider.sendMessage(message, onSuccess, onError);
+  void sendMessage(Message message, User sender, User receiver, Function onSuccess, Function onError){
+    return _chatDataProvider.sendMessage(message, sender, receiver, onSuccess, onError);
   }
 
   Stream<List<Message>> getMessageList(String otherUserId, String currentUserId){

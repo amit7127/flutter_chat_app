@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/generated/l10n.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
+import 'package:flutter_chat_app/models/User.dart';
 import 'package:flutter_chat_app/models/message.dart';
 import 'package:flutter_chat_app/pages/chatting/chat_repository.dart';
 import 'package:flutter_chat_app/utils/AppBloc.dart';
@@ -19,17 +19,22 @@ class ChatPageBloc implements AppBlock {
   final BehaviorSubject<bool> _isStickerEnabled = BehaviorSubject<bool>();
   final BehaviorSubject<CommonsResponse<String>> _imageUploadTask =
       BehaviorSubject<CommonsResponse<String>>();
-  final BehaviorSubject<CommonsResponse<bool>> _isMessageSent = BehaviorSubject<CommonsResponse<bool>>();
-  final BehaviorSubject<List<Message>> _messageList = BehaviorSubject<List<Message>>();
+  final BehaviorSubject<CommonsResponse<bool>> _isMessageSent =
+      BehaviorSubject<CommonsResponse<bool>>();
+  final BehaviorSubject<List<Message>> _messageList =
+      BehaviorSubject<List<Message>>();
 
   ChatPageBloc() {
     _isStickerEnabled.add(false);
   }
 
   BehaviorSubject<bool> get isStickerEnabled => _isStickerEnabled;
+
   BehaviorSubject<CommonsResponse<String>> get imageUploadTask =>
       _imageUploadTask;
+
   BehaviorSubject<CommonsResponse<bool>> get isMessageSent => _isMessageSent;
+
   BehaviorSubject<List<Message>> get messageList => _messageList;
 
   void toggleStickerView() {
@@ -50,18 +55,24 @@ class ChatPageBloc implements AppBlock {
             S.of(context).image_uploading_progress(progress.round()))));
   }
 
-  void sendChatMessage(Message message) {
-    _isMessageSent.add(CommonsResponse.loading('Message sending'));
-    _repo.sendMessage(message, () => _isMessageSent.add(CommonsResponse.completed(true, message: 'Message sent')),
-        (error) => CommonsResponse.error('Message sending failed'));
+  void sendChatMessage(Message message, User sender, User receiver, BuildContext context) {
+    _isMessageSent.add(CommonsResponse.loading(S.of(context).message_sending_wait));
+    _repo.sendMessage(
+        message,
+        sender,
+        receiver,
+        () => _isMessageSent
+            .add(CommonsResponse.completed(true, message: S.of(context).message_sent_success)),
+        (error) => CommonsResponse.error(S.of(context).message_sent_failed));
   }
 
-  void getMessageList(String otherUserId, String currentUserId) async{
-    var chatDocumentList = await _repo.getMessageList(otherUserId, currentUserId);
-    if(chatDocumentList != null){
+  void getMessageList(String otherUserId, String currentUserId, BuildContext context) async {
+    var chatDocumentList =
+        await _repo.getMessageList(otherUserId, currentUserId);
+    if (chatDocumentList != null) {
       await _messageList.addStream(chatDocumentList);
     } else {
-      _messageList.addError('Unable to fetch.');
+      _messageList.addError(S.of(context).chat_message_fetch_error);
     }
   }
 

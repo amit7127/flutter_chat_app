@@ -220,28 +220,6 @@ class ChatListState extends State<ChatListScreen> {
                     message.message,
                     style: TextStyle(color: Colors.black, fontSize: 14.0),
                   )
-                  // snapshot['type'] == 'text'
-                  //     ? Text(
-                  //   snapshot['message'],
-                  //   style: TextStyle(color: Colors.black, fontSize: 14.0),
-                  // )
-                  //     : InkWell(
-                  //   onTap: (() {
-                  //     // Navigator.push(
-                  //     //     context,
-                  //     //     new MaterialPageRoute(
-                  //     //         builder: (context) => FullScreenImage(photoUrl: snapshot['photoUrl'],)));
-                  //   }),
-                  //   child: Hero(
-                  //     tag: snapshot['photoUrl'],
-                  //     child: FadeInImage(
-                  //       image: NetworkImage(snapshot['photoUrl']),
-                  //       placeholder: AssetImage('assets/blankimage.png'),
-                  //       width: 200.0,
-                  //       height: 200.0,
-                  //     ),
-                  //   ),
-                  // )
                 ],
               )
             ],
@@ -403,6 +381,6 @@ class ChatListState extends State<ChatListScreen> {
   void sendMessage(String messageString, int messageCategory) {
     var chatMessage =
         Message('', widget.receiver.id, messageString, messageCategory);
-    _bloc.sendChatMessage(chatMessage);
+    _bloc.sendChatMessage(chatMessage, widget.sender, widget.receiver, context);
   }
 }

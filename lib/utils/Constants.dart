@@ -36,4 +36,11 @@ class Constants {
   static const TEXT_MESSAGE_TYPE = 0;   // For text message type
   static const IMAGE_MESSAGE_TYPE = 1;  // For image message typr
   static const EMOJI_MESSAGE_TYPE = 2;  // for Emoji message type
+
+  ///Message history fields name
+  static const MESSAGE_HISTORY_USER_ID = 'userId';
+  static const MESSAGE_HISTORY_LAST_MESSAGE = 'lastMessage';
+  static const MESSAGE_HISTORY_TIME_STAMP = 'timeStamp';
+  static const MESSAGE_HISTORY_PROFILE_PICTURE = 'userProfilePic';
+  static const MESSAGE_HISTORY_USER_NAME = 'userName';
 }

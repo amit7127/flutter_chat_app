@@ -1,30 +1,29 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_chat_app/generated/l10n.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
 import 'package:flutter_chat_app/models/User.dart';
-import 'package:flutter_chat_app/pages/login/LoginPage.dart';
+import 'package:flutter_chat_app/pages/drawer/app_drawer.dart';
 import 'package:flutter_chat_app/pages/settings/SettingsPage.dart';
+import 'package:flutter_chat_app/utils/StringUtils.dart';
 import 'package:flutter_chat_app/utils/extension_utils.dart';
-import 'package:flutter_chat_app/widgets/AppDrawer.dart';
 import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
 import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
 
 import '../chatting/chatting_page.dart';
-import 'HomePageBloc.dart';
+import 'search_user_bloc.dart';
 
-class HomeScreen extends StatefulWidget {
+class SearchScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return HomeScreenState();
+    return SearchScreenState();
   }
 }
 
-class HomeScreenState extends State<HomeScreen> {
-  HomeBloc bloc;
+class SearchScreenState extends State<SearchScreen>
+    with AutomaticKeepAliveClientMixin<SearchScreen> {
+  SearchUserBloc bloc;
   User currentUser;
   TextEditingController searchEditingController;
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
@@ -40,28 +39,19 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     //Initialize bloc
-    bloc = HomeBloc(context);
+    bloc = SearchUserBloc(context);
     bloc.getUserDataFromDevice();
+
+    super.build(context);
 
     return Scaffold(
       key: _drawerKey,
-      appBar: HomeAppBar(appBarTitle : S.of(context).homePageTitle, searchEditingController : searchEditingController,
-          onSettingsButtonTapped : openDrawer, onProfileButtonClicked : navigateToSettingsPage),
-      endDrawer: StreamBuilder<User>(
-        stream: bloc.userData.stream,
-        builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-          if (snapshot.hasData && snapshot.data != null) {
-            //If data available show circular profile image
-            currentUser = snapshot.data;
-            return AppDrawer(snapshot.data.photoUrl, changeLanguage,
-                navigateToSettingsPage, logoutUser);
-          } else {
-            //Data is not available or data is empty for the profile image, so show placeholder
-            return AppDrawer(
-                '', changeLanguage, navigateToSettingsPage, logoutUser);
-          }
-        },
-      ),
+      appBar: HomeAppBar(
+          appBarTitle: S.of(context).homePageTitle,
+          searchEditingController: searchEditingController,
+          onSettingsButtonTapped: openDrawer,
+          onProfileButtonClicked: navigateToSettingsPage),
+      endDrawer: AppDrawer(refreshWidget: refreshWidget),
       body: Stack(
         children: <Widget>[
           StreamBuilder<User>(
@@ -99,37 +89,13 @@ class HomeScreenState extends State<HomeScreen> {
                   return _noResultScreen();
                 }
               }),
-          Padding(
-            padding: EdgeInsets.all(6.0),
-            child: StreamBuilder<CommonsResponse<bool>>(
-              stream: bloc.logout.stream,
-              builder: (BuildContext context,
-                  AsyncSnapshot<CommonsResponse<bool>> snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data.status == Status.LOADING) {
-                    //Loading screen
-                    return circularProgress();
-                  } else if (snapshot.data.status == Status.ERROR) {
-                    Fluttertoast.showToast(msg: snapshot.data.message);
-                    return Container();
-                  } else if (snapshot.data.status == Status.COMPLETED) {
-                    Fluttertoast.showToast(msg: snapshot.data.message);
-                    if (snapshot.data.data == true) {
-                      SchedulerBinding.instance
-                          .addPostFrameCallback((timeStamp) {
-                        navigateToLoginPage();
-                      });
-                    }
-                    return Container();
-                  }
-                }
-                return Container();
-              },
-            ),
-          ),
         ],
       ),
     );
+  }
+
+  void refreshWidget() {
+    setState(() {});
   }
 
   ///No search data available screen
@@ -163,8 +129,8 @@ class HomeScreenState extends State<HomeScreen> {
         itemCount: usersList.length,
         itemBuilder: (context, index) {
           var user = usersList[index];
-          var joinedDate = DateFormat('dd MMMM yyyy - hh:mm:aa').format(
-              DateTime.fromMillisecondsSinceEpoch((int.parse(user.createdAt))));
+          var joinedDate = StringUtils.getChatListDateFormat(
+              serverTime: user.createdAt, context: context);
           return Card(
             child: ListTile(
               leading: CircleAvatar(
@@ -193,17 +159,6 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  ///Logout user
-  void logoutUser() {
-    bloc.logOutUser();
-  }
-
-  ///navigates to home page
-  void navigateToLoginPage() {
-    Navigator.push(context,
-        MaterialPageRoute<HomeScreen>(builder: (context) => LoginScreen()));
-  }
-
   ///clear search text box
   void emptyTextFormField() {
     if (searchEditingController != null) searchEditingController.clear();
@@ -220,18 +175,13 @@ class HomeScreenState extends State<HomeScreen> {
     _drawerKey.currentState.openEndDrawer();
   }
 
-  ///Change language of the app
-  void changeLanguage(Locale locale) {
-    print(locale.languageCode);
-    setState(() {
-      S.load(locale);
-    });
-  }
-
   void navigateToChatPage(User receiverUser) {
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => ChatPage(receiverUser, currentUser)));
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

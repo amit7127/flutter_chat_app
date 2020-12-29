@@ -354,6 +354,56 @@ class S {
       args: [percentage],
     );
   }
+
+  /// `Yesterday`
+  String get yesterday_string {
+    return Intl.message(
+      'Yesterday',
+      name: 'yesterday_string',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message sending, please wait.`
+  String get message_sending_wait {
+    return Intl.message(
+      'Message sending, please wait.',
+      name: 'message_sending_wait',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message sent`
+  String get message_sent_success {
+    return Intl.message(
+      'Message sent',
+      name: 'message_sent_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message sending failed`
+  String get message_sent_failed {
+    return Intl.message(
+      'Message sending failed',
+      name: 'message_sent_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unable to fetch previous conversation.`
+  String get chat_message_fetch_error {
+    return Intl.message(
+      'Unable to fetch previous conversation.',
+      name: 'chat_message_fetch_error',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -361,9 +411,9 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en'),
-      Locale.fromSubtags(languageCode: 'de'),
-      Locale.fromSubtags(languageCode: 'fr'),
+      Locale.fromSubtags(languageCode: 'en', countryCode: 'US', scriptCode: 'English'),
+      Locale.fromSubtags(languageCode: 'de', countryCode: 'Germany', scriptCode: 'Deutsch'),
+      Locale.fromSubtags(languageCode: 'fr', countryCode: 'France', scriptCode: 'French'),
     ];
   }
 

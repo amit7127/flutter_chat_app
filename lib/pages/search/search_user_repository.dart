@@ -5,9 +5,9 @@ import 'package:flutter_chat_app/utils/PreferenceUtils.dart';
 
 ///
 /// Created by  on 12/7/2020.
-/// HomeRepsitory.dart : 
+/// search_user_repository.dart :
 ///
-class HomeRepository{
+class SearchRepository{
   final UserDetailsProvider _userDetailsProvider = UserDetailsProvider();
 
   ///Get user details from the device storage

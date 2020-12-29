@@ -35,5 +35,11 @@
 
   "chat_image_upload_wait_message": "Image uploading please wait.",
   "chat_image_upload_success_message": "Image uploaded successfully.",
-  "image_uploading_progress": "Uploading: {percentage}% Completed."
+  "image_uploading_progress": "Uploading: {percentage}% Completed.",
+
+  "yesterday_string": "Yesterday",
+  "message_sending_wait": "Message sending, please wait.",
+  "message_sent_success": "Message sent",
+  "message_sent_failed": "Message sending failed",
+  "chat_message_fetch_error": "Unable to fetch previous conversation."
 }

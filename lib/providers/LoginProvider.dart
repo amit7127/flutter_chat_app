@@ -47,9 +47,7 @@ class LoginProvider {
           Constants.USER_ID: firebaseUser.uid,
           Constants.USER_ABOUTME: 'About me',
           Constants.USER_CREATEDAT:
-              DateTime.now().millisecondsSinceEpoch.toString(),
-          Constants.USER_CHATTINGWITH: null,
-          Constants.USER_NAME_CASE_SEARCH : StringUtils.setSearchParam(firebaseUser.displayName.toLowerCase())
+              FieldValue.serverTimestamp(),
         });
 
         //Write data to local

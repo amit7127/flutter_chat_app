@@ -26,7 +26,7 @@ class ChatListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _bloc.getMessageList(receiver.id, sender.id);
+    _bloc.getMessageList(receiver.id, sender.id, context);
 
     return Flexible(
         child: Container(

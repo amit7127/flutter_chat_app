@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_chat_app/generated/l10n.dart';
 import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'package:flutter_chat_app/pages/home/HomePage.dart';
+import 'package:flutter_chat_app/pages/home/home_page.dart';
+import 'package:flutter_chat_app/pages/search/search_user_page.dart';
 import 'package:flutter_chat_app/utils/ScaleConfig.dart';
 import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -143,7 +144,7 @@ class LoginScreenState extends State<LoginScreen> {
   ///After success login replace to Home page
   void navigateToHomePage() {
     Navigator.pushReplacement(context,
-        MaterialPageRoute<HomeScreen>(builder: (context) => HomeScreen()));
+        MaterialPageRoute<HomePage>(builder: (context) => HomePage()));
   }
 
   @override

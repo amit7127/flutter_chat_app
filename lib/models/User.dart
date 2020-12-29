@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_chat_app/utils/Constants.dart';
 
 class User {
   String _id;
   String _nickname;
   String _photoUrl;
-  String _createdAt;
+  Timestamp _createdAt;
   String _aboutMe;
   List<String> _chattingWith;
 
@@ -26,9 +27,9 @@ class User {
     _photoUrl = value;
   }
 
-  String get createdAt => _createdAt;
+  Timestamp get createdAt => _createdAt;
 
-  set createdAt(String value) {
+  set createdAt(Timestamp value) {
     _createdAt = value;
   }
 
