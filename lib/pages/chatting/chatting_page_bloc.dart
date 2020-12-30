@@ -41,6 +41,8 @@ class ChatPageBloc implements AppBlock {
     _isStickerEnabled.add(!_isStickerEnabled.value);
   }
 
+  ///upload image for message
+  ///[imageFile] :
   void uploadChatImage(File imageFile, BuildContext context) {
     _imageUploadTask.add(
         CommonsResponse.loading(S.of(context).chat_image_upload_wait_message));
@@ -55,18 +57,30 @@ class ChatPageBloc implements AppBlock {
             S.of(context).image_uploading_progress(progress.round()))));
   }
 
-  void sendChatMessage(Message message, User sender, User receiver, BuildContext context) {
-    _isMessageSent.add(CommonsResponse.loading(S.of(context).message_sending_wait));
+  /// Send chat message
+  /// [message] : Message object
+  /// [receiver] : User object
+  /// [sender] : Sender User object
+  /// [context] : BuildContext
+  void sendChatMessage(
+      Message message, User sender, User receiver, BuildContext context) {
+    _isMessageSent
+        .add(CommonsResponse.loading(S.of(context).message_sending_wait));
     _repo.sendMessage(
         message,
         sender,
         receiver,
-        () => _isMessageSent
-            .add(CommonsResponse.completed(true, message: S.of(context).message_sent_success)),
+        () => _isMessageSent.add(CommonsResponse.completed(true,
+            message: S.of(context).message_sent_success)),
         (error) => CommonsResponse.error(S.of(context).message_sent_failed));
   }
 
-  void getMessageList(String otherUserId, String currentUserId, BuildContext context) async {
+  ///Get message list
+  ///[otherUserId] : String user id of other party
+  ///[currentUserId] : String current user id
+  ///[context] : BuildContext
+  void getMessageList(
+      String otherUserId, String currentUserId, BuildContext context) async {
     var chatDocumentList =
         await _repo.getMessageList(otherUserId, currentUserId);
     if (chatDocumentList != null) {

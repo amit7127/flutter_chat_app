@@ -162,6 +162,7 @@ class ChatListWidget extends StatelessWidget {
       //Show image type message
       return GestureDetector(
         child: CachedNetworkImage(
+          fit: BoxFit.cover,
           imageUrl: message.message,
           placeholder: (context, url) => Container(
               width: 36,

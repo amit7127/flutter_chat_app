@@ -165,10 +165,10 @@ class S {
     );
   }
 
-  /// `fetching users, please wait`
+  /// `Fetching users, please wait`
   String get user_fetching_dialog {
     return Intl.message(
-      'fetching users, please wait',
+      'Fetching users, please wait',
       name: 'user_fetching_dialog',
       desc: '',
       args: [],
@@ -404,6 +404,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Chat History`
+  String get chat_history_title {
+    return Intl.message(
+      'Chat History',
+      name: 'chat_history_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `image.jpg`
+  String get image_placeholder {
+    return Intl.message(
+      'image.jpg',
+      name: 'image_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sticker`
+  String get sticker_placeholder {
+    return Intl.message(
+      'Sticker',
+      name: 'sticker_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully userDetails fetched.`
+  String get user_details_fetch_success {
+    return Intl.message(
+      'Successfully userDetails fetched.',
+      name: 'user_details_fetch_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unable to fetch user info, please try again later.`
+  String get user_details_fetch_failed {
+    return Intl.message(
+      'Unable to fetch user info, please try again later.',
+      name: 'user_details_fetch_failed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -411,9 +461,9 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en', countryCode: 'US', scriptCode: 'English'),
-      Locale.fromSubtags(languageCode: 'de', countryCode: 'Germany', scriptCode: 'Deutsch'),
-      Locale.fromSubtags(languageCode: 'fr', countryCode: 'France', scriptCode: 'French'),
+      Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'de'),
+      Locale.fromSubtags(languageCode: 'fr'),
     ];
   }
 

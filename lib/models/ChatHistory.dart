@@ -16,6 +16,7 @@ class ChatHistory {
   String _lastMessage;
   FieldValue _timeStamp;
   Timestamp _timeStampFromServer;
+  int _messageType;
 
   String get userId => _userId;
 
@@ -53,12 +54,19 @@ class ChatHistory {
     _userName = value;
   }
 
+  int get messageType => _messageType;
+
+  set messageType(int value) {
+    _messageType = value;
+  }
+
   ChatHistory.fromMessage(Message message, User user) {
     _userId = user.id;
     _lastMessage = message.message;
     _userPhotoUrl = user.photoUrl;
     _timeStamp = message.timeStamp;
     _userName = user.nickname;
+    _messageType = message.messageType;
   }
 
   Map<String, dynamic> toMap() {
@@ -67,7 +75,8 @@ class ChatHistory {
       Constants.MESSAGE_HISTORY_LAST_MESSAGE: _lastMessage,
       Constants.MESSAGE_HISTORY_TIME_STAMP: _timeStamp,
       Constants.MESSAGE_HISTORY_PROFILE_PICTURE: _userPhotoUrl,
-      Constants.MESSAGE_HISTORY_USER_NAME: _userName
+      Constants.MESSAGE_HISTORY_USER_NAME: _userName,
+      Constants.MESSAGE_HISTORY_MESSAGE_TYPE: _messageType
     };
   }
 
@@ -77,5 +86,6 @@ class ChatHistory {
     _timeStampFromServer = map[Constants.MESSAGE_HISTORY_TIME_STAMP];
     _userPhotoUrl = map[Constants.MESSAGE_HISTORY_PROFILE_PICTURE];
     _userName = map[Constants.MESSAGE_HISTORY_USER_NAME];
+    _messageType = map[Constants.MESSAGE_HISTORY_MESSAGE_TYPE];
   }
 }

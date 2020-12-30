@@ -85,4 +85,14 @@ class UserDetailsProvider {
 
     return allUsers;
   }
+
+
+  ///Get user from user id string
+  ///[userId] : String user id
+  Future<User> getUserFromId(String userId) async{
+    var snapshot = await Firestore.instance
+        .collection(Constants.USER_TABLE_NAME).document(userId).get();
+
+    return User.fromMap(snapshot.data);
+  }
 }

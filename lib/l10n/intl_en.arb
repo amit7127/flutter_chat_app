@@ -13,7 +13,7 @@
   "search_user_hint": "Search Users",
   "no_result_hint": "No Result Found",
   "user_joined_text": "Joined: {date}",
-  "user_fetching_dialog": "fetching users, please wait",
+  "user_fetching_dialog": "Fetching users, please wait",
 
   "nickNameValidationErrorMessage": "Please enter your Nick name",
   "nickNameHint": "e.g - Amit/Nick",
@@ -41,5 +41,10 @@
   "message_sending_wait": "Message sending, please wait.",
   "message_sent_success": "Message sent",
   "message_sent_failed": "Message sending failed",
-  "chat_message_fetch_error": "Unable to fetch previous conversation."
+  "chat_message_fetch_error": "Unable to fetch previous conversation.",
+  "chat_history_title": "Chat History",
+  "image_placeholder": "image.jpg",
+  "sticker_placeholder": "Sticker",
+  "user_details_fetch_success": "Successfully userDetails fetched.",
+  "user_details_fetch_failed": "Unable to fetch user info, please try again later."
 }
