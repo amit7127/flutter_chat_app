@@ -2,16 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/generated/l10n.dart';
-import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'package:flutter_chat_app/models/User.dart';
+import 'package:flutter_chat_app/models/common_response.dart';
 import 'package:flutter_chat_app/models/message.dart';
+import 'package:flutter_chat_app/models/user.dart';
 import 'package:flutter_chat_app/pages/chatting/chat_repository.dart';
-import 'package:flutter_chat_app/utils/AppBloc.dart';
+import 'package:flutter_chat_app/utils/app_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 ///
 /// Created by  on 12/11/2020.
-/// chatting_page_bloc.dart :
+/// chatting_page_bloc.dart : Chatting screen bloc
 ///
 class ChatPageBloc implements AppBlock {
   final ChatRepo _repo = ChatRepo();
@@ -42,7 +42,8 @@ class ChatPageBloc implements AppBlock {
   }
 
   ///upload image for message
-  ///[imageFile] :
+  ///[imageFile] : Image file to upload
+  ///[context] : BuildContext
   void uploadChatImage(File imageFile, BuildContext context) {
     _imageUploadTask.add(
         CommonsResponse.loading(S.of(context).chat_image_upload_wait_message));

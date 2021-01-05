@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/utils/ScaleConfig.dart';
+import 'package:flutter_chat_app/utils/scale_config.dart';
 
-import 'ProgressWidget.dart';
+import 'progress_widget.dart';
 
 ///
 /// Created by Amit Kumar Sahoo on 11/23/2020.
-/// CircularProfileImageView.dart : Circular profile image
+/// circular_profile_image_view.dart : Circular profile image
 ///
 
 ///Circular Profile image from the Network

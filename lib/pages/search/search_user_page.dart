@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/generated/l10n.dart';
-import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'package:flutter_chat_app/models/User.dart';
+import 'package:flutter_chat_app/models/common_response.dart';
+import 'package:flutter_chat_app/models/user.dart';
 import 'package:flutter_chat_app/pages/drawer/app_drawer.dart';
-import 'package:flutter_chat_app/pages/settings/SettingsPage.dart';
-import 'package:flutter_chat_app/utils/StringUtils.dart';
+import 'package:flutter_chat_app/pages/settings/settings_page.dart';
+import 'package:flutter_chat_app/utils/string_utils.dart';
 import 'package:flutter_chat_app/utils/extension_utils.dart';
-import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
-import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
+import 'package:flutter_chat_app/widgets/home_app_bar.dart';
+import 'package:flutter_chat_app/widgets/progress_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../chatting/chatting_page.dart';

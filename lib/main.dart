@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'generated/l10n.dart';
-import 'pages/login/LoginPage.dart';
-import 'utils/ScaleConfig.dart';
+import 'pages/login/login_page.dart';
+import 'utils/scale_config.dart';
 
 
 

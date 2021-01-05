@@ -1,20 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'package:flutter_chat_app/utils/AppBloc.dart';
+import 'package:flutter_chat_app/models/common_response.dart';
+import 'package:flutter_chat_app/utils/app_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'LoginRepository.dart';
+import 'login_repository.dart';
 
 ///
 /// Created by Amit Kumar Sahoo on 10/29/2020
-/// LoginAuthBloc.dart : Login related methods BLOC
+/// login_auth_bloc.dart : Login related methods BLOC
 ///
 class LoginAuthBloc extends AppBlock {
   final LoginRepository _repository = LoginRepository();
 
   final BehaviorSubject<CommonsResponse<FirebaseUser>> _logginData =
       BehaviorSubject<CommonsResponse<FirebaseUser>>();
-
   final BehaviorSubject<CommonsResponse<bool>> _isLogin =
       BehaviorSubject<CommonsResponse<bool>>();
 
@@ -22,7 +21,7 @@ class LoginAuthBloc extends AppBlock {
 
   BehaviorSubject<CommonsResponse<bool>> get isLogin => _isLogin;
 
-  //Login user with google account
+  ///Login user with google account
   void loginUser() async {
     _logginData.add(CommonsResponse.loading('Please wait user logging in'));
     var response = await _repository.loginUser();
@@ -35,7 +34,7 @@ class LoginAuthBloc extends AppBlock {
     }
   }
 
-  //Check if user already logged in
+  ///Check if user already logged in
   void isLoggedIn() async {
     _isLogin.add(CommonsResponse.loading('Checking, user login data'));
     var loginData = await _repository.checkForUserLogin();

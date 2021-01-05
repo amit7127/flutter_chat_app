@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_chat_app/models/message.dart';
-import 'package:flutter_chat_app/utils/Constants.dart';
+import 'package:flutter_chat_app/utils/constants.dart';
 
-import 'User.dart';
+import 'user.dart';
 
 ///
 /// Created by Amit Kumar Sahoo (amit.sahoo@mindfiresolutions.com)
 /// on 28-12-2020.
-/// ChatHistory.dart :
+/// chat_history.dart :
 ///
 class ChatHistory {
   String _userId;

@@ -7,7 +7,7 @@ import 'package:flutter_chat_app/utils/extension_utils.dart';
 
 ///
 /// Created by  on 11/21/2020.
-/// HomeAppBar.dart : App bar widget with search bar and settings navigation icon
+/// home_app_bar.dart : App bar widget with search bar and settings navigation icon
 ///
 class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String appBarTitle;

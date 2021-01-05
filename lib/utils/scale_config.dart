@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 
 ///
 /// Created by  on 11/25/2020.
-/// ScaleConfig.dart : Size constants for responsive UI for different screen sizes
+/// scale_config.dart : Size constants for responsive UI for different screen sizes
 ///
 
 class ScaleConfig {

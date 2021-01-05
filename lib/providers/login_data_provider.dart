@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_chat_app/models/User.dart';
-import 'package:flutter_chat_app/utils/Constants.dart';
-import 'package:flutter_chat_app/utils/PreferenceUtils.dart';
-import 'package:flutter_chat_app/utils/StringUtils.dart';
+import 'package:flutter_chat_app/models/user.dart';
+import 'package:flutter_chat_app/utils/constants.dart';
+import 'package:flutter_chat_app/utils/preference_utils.dart';
+import 'package:flutter_chat_app/utils/string_utils.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 ///

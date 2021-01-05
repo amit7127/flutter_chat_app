@@ -2,23 +2,23 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_chat_app/generated/l10n.dart';
-import 'package:flutter_chat_app/models/ChatHistory.dart';
-import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'package:flutter_chat_app/models/User.dart';
+import 'package:flutter_chat_app/models/chat_history.dart';
+import 'package:flutter_chat_app/models/common_response.dart';
+import 'package:flutter_chat_app/models/user.dart';
 import 'package:flutter_chat_app/pages/chatting/chatting_page.dart';
 import 'package:flutter_chat_app/pages/drawer/app_drawer.dart';
 import 'package:flutter_chat_app/pages/homechat/home_chat_bloc.dart';
-import 'package:flutter_chat_app/utils/Constants.dart';
-import 'package:flutter_chat_app/utils/StringUtils.dart';
+import 'package:flutter_chat_app/utils/constants.dart';
 import 'package:flutter_chat_app/utils/extension_utils.dart';
-import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
-import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
+import 'package:flutter_chat_app/utils/string_utils.dart';
+import 'package:flutter_chat_app/widgets/home_app_bar.dart';
+import 'package:flutter_chat_app/widgets/progress_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 ///
 /// Created by Amit Kumar Sahoo (amit.sahoo@mindfiresolutions.com)
 /// on 24-12-2020.
-/// home_chat_history_page.dart :
+/// home_chat_history_page.dart : Chat history list
 ///
 class HomeChatPage extends StatefulWidget {
   @override
@@ -45,6 +45,9 @@ class HomeChatState extends State<HomeChatPage> {
         endDrawer: AppDrawer(refreshWidget: refreshWidget),
         body: Stack(
           children: <Widget>[
+            //on chat history click
+            //fetch the user details for current user and receiver
+            // then navigate to chatting page
             StreamBuilder(
                 stream: _bloc.users.stream,
                 builder: (BuildContext context,
@@ -66,6 +69,8 @@ class HomeChatState extends State<HomeChatPage> {
                     return Container();
                   }
                 }),
+
+            //fetch chat history list
             StreamBuilder(
               stream: _bloc.chatList.stream,
               builder: (BuildContext context,
@@ -76,31 +81,7 @@ class HomeChatState extends State<HomeChatPage> {
                       padding: EdgeInsets.all(10.0),
                       itemBuilder: (context, index) {
                         var chatData = snapshot.data[index];
-                        var messageDate = StringUtils.getChatListDateFormat(
-                            serverTime: chatData.timeStampFromServer,
-                            context: context);
-
-                        return Card(
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.black,
-                              backgroundImage: CachedNetworkImageProvider(
-                                  chatData.userPhotoUrl),
-                            ),
-                            title: Text(
-                              chatData.userName.titleCase(),
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                            subtitle: getMessageBody(
-                                chatData.messageType, chatData.lastMessage),
-                            trailing: Text(messageDate),
-                            onTap: () =>
-                                _bloc.getUsers(chatData.userId, context),
-                          ),
-                        );
+                        return getCardForListItem(chatData);
                       });
                 } else {
                   return circularProgress();
@@ -111,6 +92,32 @@ class HomeChatState extends State<HomeChatPage> {
         ));
   }
 
+  ///Get chat history list item card view
+  ///[chatData] : ChatHistory object
+  Widget getCardForListItem(ChatHistory chatData) {
+    var messageDate = StringUtils.getChatListDateFormat(
+        serverTime: chatData.timeStampFromServer, context: context);
+    return Card(
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: Colors.black,
+          backgroundImage: CachedNetworkImageProvider(chatData.userPhotoUrl),
+        ),
+        title: Text(
+          chatData.userName.titleCase(),
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        subtitle: getMessageBody(chatData.messageType, chatData.lastMessage),
+        trailing: Text(messageDate),
+        onTap: () => _bloc.getUsers(chatData.userId, context),
+      ),
+    );
+  }
+
+  ///get message list item body
+  ///[messageType] : int [gif/image/text]
+  ///[message] : String message content
   Widget getMessageBody(int messageType, String message) {
     if (messageType == Constants.IMAGE_MESSAGE_TYPE) {
       return Row(
@@ -134,10 +141,13 @@ class HomeChatState extends State<HomeChatPage> {
     }
   }
 
+  /// Refresh page on language change
   void refreshWidget() {
     setState(() {});
   }
 
+  /// Navigate to Chat page
+  /// [users] : List<User> contains Sender and Receiver Users
   void navigateToChatPage(List<User> users) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => ChatPage(users[1], users[0])));

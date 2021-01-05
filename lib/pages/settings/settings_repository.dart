@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:flutter_chat_app/models/User.dart';
-import 'package:flutter_chat_app/providers/UserDetailsProvider.dart';
-import 'package:flutter_chat_app/utils/PreferenceUtils.dart';
+import 'package:flutter_chat_app/models/user.dart';
+import 'package:flutter_chat_app/providers/user_details_provider.dart';
+import 'package:flutter_chat_app/utils/preference_utils.dart';
 
 ///
 /// Created by  on 11/23/2020.
-/// SettingsRepository.dart : Provides data for settings page
+/// settings_repository.dart : Provides data for settings page
 ///
 class SettingsRepo {
   final UserDetailsProvider _userDetailsProvider = UserDetailsProvider();

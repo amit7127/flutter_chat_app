@@ -2,16 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_chat_app/generated/l10n.dart';
-import 'package:flutter_chat_app/models/CommonResponse.dart';
+import 'package:flutter_chat_app/models/common_response.dart';
 import 'package:flutter_chat_app/pages/home/home_page.dart';
 import 'package:flutter_chat_app/pages/search/search_user_page.dart';
-import 'package:flutter_chat_app/utils/ScaleConfig.dart';
-import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
+import 'package:flutter_chat_app/utils/scale_config.dart';
+import 'package:flutter_chat_app/widgets/progress_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'LoginAuthBloc.dart';
+import 'login_auth_bloc.dart';
 
 ///
 /// Created by Amit Kumar Sahoo on 10/29/2020

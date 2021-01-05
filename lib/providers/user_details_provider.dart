@@ -3,14 +3,14 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_chat_app/models/User.dart';
-import 'package:flutter_chat_app/utils/Constants.dart';
-import 'package:flutter_chat_app/utils/PreferenceUtils.dart';
-import 'package:flutter_chat_app/utils/StringUtils.dart';
+import 'package:flutter_chat_app/models/user.dart';
+import 'package:flutter_chat_app/utils/constants.dart';
+import 'package:flutter_chat_app/utils/preference_utils.dart';
+import 'package:flutter_chat_app/utils/string_utils.dart';
 
 ///
 /// Created by  on 12/1/2020.
-/// UserDetailsProvider.dart :
+/// user_details_provider.dart :
 ///
 class UserDetailsProvider {
   StorageReference firebaseStorageReference =

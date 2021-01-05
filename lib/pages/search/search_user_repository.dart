@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_chat_app/models/User.dart';
-import 'package:flutter_chat_app/providers/UserDetailsProvider.dart';
-import 'package:flutter_chat_app/utils/PreferenceUtils.dart';
+import 'package:flutter_chat_app/models/user.dart';
+import 'package:flutter_chat_app/providers/user_details_provider.dart';
+import 'package:flutter_chat_app/utils/preference_utils.dart';
 
 ///
 /// Created by  on 12/7/2020.

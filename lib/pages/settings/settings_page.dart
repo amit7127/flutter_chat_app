@@ -3,21 +3,21 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/generated/l10n.dart';
-import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'package:flutter_chat_app/models/User.dart';
-import 'package:flutter_chat_app/utils/ScaleConfig.dart';
+import 'package:flutter_chat_app/models/common_response.dart';
+import 'package:flutter_chat_app/models/user.dart';
+import 'package:flutter_chat_app/utils/scale_config.dart';
 import 'package:flutter_chat_app/utils/extension_utils.dart';
-import 'package:flutter_chat_app/widgets/CircularProfileImageView.dart';
-import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
-import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
+import 'package:flutter_chat_app/widgets/circular_profile_image_view.dart';
+import 'package:flutter_chat_app/widgets/home_app_bar.dart';
+import 'package:flutter_chat_app/widgets/progress_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'SettingsBloc.dart';
+import 'settings_bloc.dart';
 
 ///
 /// Created by  on 11/4/2020.
-/// SettingsPage.dart : Contains user account related information
+/// settings_page.dart : Contains user account related information
 ///
 
 class Settings extends StatelessWidget {

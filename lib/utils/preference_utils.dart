@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter_chat_app/models/User.dart';
-import 'package:flutter_chat_app/utils/Constants.dart';
+import 'package:flutter_chat_app/models/user.dart';
+import 'package:flutter_chat_app/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferenceUtils {

@@ -1,6 +1,6 @@
-import 'package:flutter_chat_app/models/User.dart';
-import 'package:flutter_chat_app/providers/LoginProvider.dart';
-import 'package:flutter_chat_app/utils/PreferenceUtils.dart';
+import 'package:flutter_chat_app/models/user.dart';
+import 'package:flutter_chat_app/providers/login_data_provider.dart';
+import 'package:flutter_chat_app/utils/preference_utils.dart';
 
 ///
 /// Created by Amit Kumar Sahoo (amit.sahoo@mindfiresolutions.com)
@@ -16,7 +16,7 @@ class AppDrawerRepo {
   }
 
   ///Provides method for logout user
-  Future<bool> logoutUser(){
+  Future<bool> logoutUser() {
     return _loginProvider.signOutUser();
   }
 }

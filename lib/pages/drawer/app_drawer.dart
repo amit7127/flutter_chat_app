@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_chat_app/generated/l10n.dart';
-import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'package:flutter_chat_app/models/User.dart';
-import 'package:flutter_chat_app/pages/login/LoginPage.dart';
+import 'package:flutter_chat_app/models/common_response.dart';
+import 'package:flutter_chat_app/models/user.dart';
+import 'package:flutter_chat_app/pages/login/login_page.dart';
 import 'package:flutter_chat_app/pages/search/search_user_page.dart';
-import 'package:flutter_chat_app/pages/settings/SettingsPage.dart';
-import 'package:flutter_chat_app/widgets/ProgressWidget.dart';
+import 'package:flutter_chat_app/pages/settings/settings_page.dart';
+import 'package:flutter_chat_app/widgets/progress_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
-import '../../widgets/CircularProfileImageView.dart';
+import '../../widgets/circular_profile_image_view.dart';
 import 'app_drawer_bloc.dart';
 
 ///
 /// Created by Amit Kumar Sahoo on 12/7/2020.
-/// app_drawer.dart :
+/// app_drawer.dart : App drawer for navigation to diff menu options
 ///
 
 class AppDrawer extends StatefulWidget {
@@ -60,6 +60,7 @@ class AppDrawerState extends State<AppDrawer>
           //          <-- ListTile.divideTiles
           context: context,
           tiles: <Widget>[
+            //User profile image view
             DrawerHeader(
               child: Container(
                 child: Row(
@@ -85,6 +86,8 @@ class AppDrawerState extends State<AppDrawer>
                 color: Colors.blue,
               ),
             ),
+
+            //Language dropDown
             ListTile(
               title: Text(S.of(context).select_language),
               trailing: _langListVisible
@@ -110,6 +113,8 @@ class AppDrawerState extends State<AppDrawer>
                     )
                   : Container(),
             ),
+
+            //Edit menu
             ListTile(
               title: Text(S.of(context).menu_edit_profile),
               trailing: Icon(Icons.edit_location_sharp),
@@ -119,6 +124,8 @@ class AppDrawerState extends State<AppDrawer>
                 navigateToSettingsPage();
               },
             ),
+
+            //Logout menu
             ListTile(
               title: Text(S.of(context).logoutButtonText),
               trailing: StreamBuilder<CommonsResponse<bool>>(
@@ -158,7 +165,9 @@ class AppDrawerState extends State<AppDrawer>
                 // Update the state of the app
                 _appDrawerBloc.logOutUser(context);
               },
-            )
+            ),
+
+            //Todo: Add App version menu, FAQ, About, Contact us
           ],
         ).toList(),
       ),
@@ -202,6 +211,7 @@ class AppDrawerState extends State<AppDrawer>
   }
 
   ///Change language of the app
+  ///[locale] : Locale to change lang
   void changeDrawerLanguage(Locale locale) {
     print(locale.languageCode);
     setState(() {

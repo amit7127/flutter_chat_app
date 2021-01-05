@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_chat_app/generated/l10n.dart';
-import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'package:flutter_chat_app/models/User.dart';
-import 'package:flutter_chat_app/utils/AppBloc.dart';
+import 'package:flutter_chat_app/models/common_response.dart';
+import 'package:flutter_chat_app/models/user.dart';
+import 'package:flutter_chat_app/utils/app_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'search_user_repository.dart';
 
 ///
 /// Created by Amit Kumar Sahoo on 11/2/2020.
-/// search_user_bloc.dart :
+/// search_user_bloc.dart : Search user page bloc
+///
 
 class SearchUserBloc extends AppBlock {
   final BuildContext _context;
@@ -34,6 +35,7 @@ class SearchUserBloc extends AppBlock {
   }
 
   ///Search user
+  ///[searchQuery] : String search key word
   void searchUsers(String searchQuery) async {
     if (searchQuery.isNotEmpty) {
       _usersFromSearch
@@ -59,5 +61,6 @@ class SearchUserBloc extends AppBlock {
   @override
   void dispose() {
     _userData.close();
+    _usersFromSearch.close();
   }
 }

@@ -1,9 +1,9 @@
 import 'package:bubble/bubble.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/models/User.dart';
 import 'package:flutter_chat_app/models/message.dart';
-import 'package:flutter_chat_app/utils/Constants.dart';
+import 'package:flutter_chat_app/models/user.dart';
+import 'package:flutter_chat_app/utils/constants.dart';
 import 'package:flutter_chat_app/widgets/full_screen_image_widget.dart';
 import 'package:intl/intl.dart';
 
@@ -12,7 +12,7 @@ import 'chatting_page_bloc.dart';
 ///
 /// Created by Amit Kumar Sahoo (amit.sahoo@mindfiresolutions.com)
 /// on 21-12-2020.
-/// chat_list_widget.dart :
+/// chat_list_widget.dart : Chat list widget for chatting page with chat bubble
 ///
 //ignore: must_be_immutable
 class ChatListWidget extends StatelessWidget {
@@ -51,10 +51,13 @@ class ChatListWidget extends StatelessWidget {
   }
 
   ///Get chat widget according to the chat type sender/receiver
+  ///[message] : Message object
+  ///[context] : BuildContext object
   Widget getChatWidget(Message message, BuildContext context) {
-    if(message.timeStampFromServer != null){
-      var messageDate = serverFormat.format(DateTime.fromMillisecondsSinceEpoch(message.timeStampFromServer.millisecondsSinceEpoch));
-      if(lastMessageDate.isEmpty || lastMessageDate == messageDate){
+    if (message.timeStampFromServer != null) {
+      var messageDate = serverFormat.format(DateTime.fromMillisecondsSinceEpoch(
+          message.timeStampFromServer.millisecondsSinceEpoch));
+      if (lastMessageDate.isEmpty || lastMessageDate == messageDate) {
         lastMessageDate = messageDate;
         return getTextChatBubble(message, context);
       } else {
@@ -68,6 +71,7 @@ class ChatListWidget extends StatelessWidget {
 
   /// Sender bubble
   /// [message] : Message object for sender
+  /// [context] : BuildContext object
   Widget getTextChatBubble(Message message, BuildContext context) {
     var messageSentDate = DateFormat('hh:mm:aa').format(
         DateTime.fromMillisecondsSinceEpoch(
@@ -77,53 +81,55 @@ class ChatListWidget extends StatelessWidget {
 
     return Container(
       child: Row(
-        mainAxisAlignment: isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment:
+            isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-
           //For sender show profile icon on left side
-          isSender ? CircleAvatar(
-            backgroundColor: Colors.black,
-            backgroundImage: CachedNetworkImageProvider(sender.photoUrl),
-            radius: 10,
-          ) : Container(),
+          isSender
+              ? CircleAvatar(
+                  backgroundColor: Colors.black,
+                  backgroundImage: CachedNetworkImageProvider(sender.photoUrl),
+                  radius: 10,
+                )
+              : Container(),
 
           //Message area
           Column(
             children: <Widget>[
               Bubble(
-                margin: BubbleEdges.only(top: 10),
-                alignment: isSender ? Alignment.topRight : Alignment.topLeft,
-                nipWidth: 8,
-                nipHeight: 24,
-                nip: isSender ? BubbleNip.rightTop : BubbleNip.leftTop,
-                color: Color.fromRGBO(225, 255, 199, 1.0),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: 200),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      getMessageContainer(message, context),
-                      Padding(padding: EdgeInsets.only(left: 10),
-                          child: Text(messageSentDate,
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 10))
-                      )
-
-                    ],
-                  ),
-                )
-              ),
+                  margin: BubbleEdges.only(top: 10),
+                  alignment: isSender ? Alignment.topRight : Alignment.topLeft,
+                  nipWidth: 8,
+                  nipHeight: 24,
+                  nip: isSender ? BubbleNip.rightTop : BubbleNip.leftTop,
+                  color: Color.fromRGBO(225, 255, 199, 1.0),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: 200),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        getMessageContainer(message, context),
+                        Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Text(messageSentDate,
+                                style: TextStyle(
+                                    color: Colors.grey, fontSize: 10)))
+                      ],
+                    ),
+                  )),
             ],
           ),
 
           //For receiver show profile icon on right side
-          isSender ? Container() : CircleAvatar(
-            backgroundColor: Colors.black,
-            backgroundImage: CachedNetworkImageProvider(receiver.photoUrl),
-            radius: 10,
-          )
+          isSender
+              ? Container()
+              : CircleAvatar(
+                  backgroundColor: Colors.black,
+                  backgroundImage:
+                      CachedNetworkImageProvider(receiver.photoUrl),
+                  radius: 10,
+                )
         ],
       ),
     );
@@ -132,6 +138,7 @@ class ChatListWidget extends StatelessWidget {
   /// Time bubble
   /// [message] : Message object for sender/receiver
   /// [time] : Time date formatted String
+  /// [context] : BuildContext object
   Widget getDateBubble(String time, Message message, BuildContext context) {
     var todayString = serverFormat.format(DateTime.now());
 
@@ -140,7 +147,8 @@ class ChatListWidget extends StatelessWidget {
         Bubble(
           alignment: Alignment.center,
           color: Color.fromRGBO(212, 234, 244, 1.0),
-          child: Text(todayString == time ? 'Today': time, textAlign: TextAlign.center, style: TextStyle(fontSize: 11.0)),
+          child: Text(todayString == time ? 'Today' : time,
+              textAlign: TextAlign.center, style: TextStyle(fontSize: 11.0)),
         ),
         getTextChatBubble(message, context)
       ],
@@ -149,8 +157,9 @@ class ChatListWidget extends StatelessWidget {
 
   ///Return message body according to message type
   ///[message] : Message object
-  Widget getMessageContainer(Message message, BuildContext context){
-    if(message.messageType == Constants.EMOJI_MESSAGE_TYPE) {
+  ///[context] : BuildContext object
+  Widget getMessageContainer(Message message, BuildContext context) {
+    if (message.messageType == Constants.EMOJI_MESSAGE_TYPE) {
       //Show emoji type message
       return Image.asset(
         message.message,
@@ -158,7 +167,7 @@ class ChatListWidget extends StatelessWidget {
         height: 50,
         fit: BoxFit.cover,
       );
-    } else if(message.messageType == Constants.IMAGE_MESSAGE_TYPE){
+    } else if (message.messageType == Constants.IMAGE_MESSAGE_TYPE) {
       //Show image type message
       return GestureDetector(
         child: CachedNetworkImage(
@@ -169,15 +178,16 @@ class ChatListWidget extends StatelessWidget {
               height: 36,
               alignment: Alignment.center,
               padding: EdgeInsets.all(10),
-              child: CircularProgressIndicator()
-          ),
+              child: CircularProgressIndicator()),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
         onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => FullScreenImageView(imageUrl: message.message,)));
+                  builder: (context) => FullScreenImageView(
+                        imageUrl: message.message,
+                      )));
         },
       );
     } else {

@@ -2,16 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_chat_app/generated/l10n.dart';
-import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'package:flutter_chat_app/models/User.dart';
-import 'package:flutter_chat_app/utils/AppBloc.dart';
+import 'package:flutter_chat_app/models/common_response.dart';
+import 'package:flutter_chat_app/models/user.dart';
+import 'package:flutter_chat_app/utils/app_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'SettingsRepository.dart';
+import 'settings_repository.dart';
 
 ///
 /// Created by  on 11/23/2020.
-/// SettingsBloc.dart : To Provide data related to settings page
+/// settings_bloc.dart : To Provide data related to settings page
 ///
 
 class SettingsBloc extends AppBlock {

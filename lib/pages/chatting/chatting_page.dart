@@ -3,13 +3,13 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/models/CommonResponse.dart';
-import 'package:flutter_chat_app/models/User.dart';
+import 'package:flutter_chat_app/models/common_response.dart';
+import 'package:flutter_chat_app/models/user.dart';
 import 'package:flutter_chat_app/models/message.dart';
 import 'package:flutter_chat_app/pages/chatting/chat_list_widget.dart';
-import 'package:flutter_chat_app/utils/Constants.dart';
-import 'package:flutter_chat_app/utils/ScaleConfig.dart';
-import 'package:flutter_chat_app/widgets/HomeAppBar.dart';
+import 'package:flutter_chat_app/utils/constants.dart';
+import 'package:flutter_chat_app/utils/scale_config.dart';
+import 'package:flutter_chat_app/widgets/home_app_bar.dart';
 import 'package:flutter_chat_app/widgets/emoji_selector_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';

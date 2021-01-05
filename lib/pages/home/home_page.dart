@@ -24,7 +24,7 @@ class HomePageState extends State<HomePage> {
   ];
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _pageController = PageController(initialPage: _pageIndex);
   }
@@ -43,10 +43,10 @@ class HomePageState extends State<HomePage> {
         onTap: onTabTapped,
         backgroundColor: Colors.white,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.person_search_outlined), label: 'Search'),
-          BottomNavigationBarItem( icon: Icon(Icons.chat), label: 'Chats'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_search_outlined), label: 'Search'),
+          BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Chats'),
         ],
-
       ),
       body: PageView(
         children: tabPages,
@@ -55,13 +55,19 @@ class HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  ///Page change state
+  ///[page] : int index
   void onPageChanged(int page) {
     setState(() {
       _pageIndex = page;
     });
   }
 
+  ///On tab tapped
+  ///[index] : int tab index
   void onTabTapped(int index) {
-    _pageController.animateToPage(index,duration: const Duration(milliseconds: 500),curve: Curves.easeInOut);
+    _pageController.animateToPage(index,
+        duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
   }
 }

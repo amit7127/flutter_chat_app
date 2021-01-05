@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_chat_app/utils/Constants.dart';
+import 'package:flutter_chat_app/utils/constants.dart';
 
 class User {
   String _id;

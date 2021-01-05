@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_chat_app/models/ChatHistory.dart';
-import 'package:flutter_chat_app/models/User.dart';
+import 'package:flutter_chat_app/models/chat_history.dart';
+import 'package:flutter_chat_app/models/user.dart';
 import 'package:flutter_chat_app/models/message.dart';
-import 'package:flutter_chat_app/utils/Constants.dart';
-import 'package:flutter_chat_app/utils/StringUtils.dart';
+import 'package:flutter_chat_app/utils/constants.dart';
+import 'package:flutter_chat_app/utils/string_utils.dart';
 
 ///
 /// Created by Amit Kumar Sahoo (amit.sahoo@mindfiresolutions.com)
